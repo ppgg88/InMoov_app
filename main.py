@@ -3,9 +3,10 @@ from arduino import *
 from body import *
 import configparser
 
-
 cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
+
+scal = -1
 
 def show_accueil():
     global index
@@ -49,11 +50,106 @@ def conect():
         btn.config(bg = "black")
         btn.update()
 
+# touche a
+def moteur_1_clavier(k):
+    global moteur_selectioner, index, scal,  moteur_1_h, moteur_2_la, moteur_3_ra
+    if index == 1 :
+        def moteur_selectioner(x):
+            moteur_head_1(x)
+        scal = moteur_1_h
+    if index == 2 :
+        def moteur_selectioner(x):
+            moteur_left_arm_1(x)
+        scal = moteur_1_la
+    if index == 3 :
+        def moteur_selectioner(x):
+            moteur_right_arm_1(x)
+        scal = moteur_1_ra
+
+#touche z
+def moteur_2_clavier(k):
+    global moteur_selectioner, index, scal, moteur_2_h, moteur_2_la, moteur_2_ra
+    if index == 1 :
+        def moteur_selectioner(x):
+            moteur_head_2(x)
+        scal = moteur_2_h
+    if index == 2 :
+        def moteur_selectioner(x):
+            moteur_left_arm_2(x)
+        scal = moteur_2_la
+    if index == 3 :
+        def moteur_selectioner(x):
+            moteur_right_arm_2(x)
+        scal = moteur_2_ra
+    print("moteur 2 selectioner")
+
+#touche e
+def moteur_3_clavier(k):
+    global moteur_selectioner, index,  moteur_3_h, moteur_3_la, moteur_3_ra, scal
+    if index == 1 :
+        def moteur_selectioner(x):
+            moteur_head_3(x)
+        scal = moteur_3_h
+    if index == 2 :
+        def moteur_selectioner(x):
+            moteur_left_arm_3(x)
+        scal = moteur_3_la
+    if index == 3 :
+        def moteur_selectioner(x):
+            moteur_right_arm_3(x)
+        scal = moteur_3_ra
+
+#touche r
+def moteur_4_clavier(k):
+    global moteur_selectioner, index, scal, moteur_4_h, moteur_4_la, moteur_4_ra
+    if index == 1 :
+        def moteur_selectioner(x):
+            moteur_head_4(x)
+        scal = moteur_4_h
+    if index == 2 :
+        def moteur_selectioner(x):
+            moteur_left_arm_4(x)
+        scal = moteur_4_la
+    if index == 3 :
+        def moteur_selectioner(x):
+            moteur_right_arm_4(x)
+        scal = moteur_4_la
+    moteur_selectioner(90)
+
+#touche t
+def moteur_5_clavier(k):
+    global moteur_selectioner, index, scal,  moteur_5_h
+    if index == 1 :
+        def moteur_selectioner(x):
+            moteur_head_5(x)
+        scal = moteur_5_h
+    moteur_selectioner(90)
+
+def soustraction_clavier(k):
+    global moteur_selectioner, scal
+    if scal != -1 :
+        val = scal.get()
+        val += -2
+        scal.set(val)
+        moteur_selectioner(val)
+        print(val)
+
+def adition_clavier(k):
+    global moteur_selectioner, scal
+    if scal != -1 :
+        val = scal.get()
+        val += 2
+        scal.set(val)
+        moteur_selectioner(val)
+        print(val)
+
+
+
 # fenetre principal
 root = Tk()
 
 #personalisation de la fenaitre principale
-root.title("InMoov : " + str(cfg["robot"]["robot_name"]))
+root.title("InMoov : " + cfg["robot"]["robot_name"])
 root.geometry("1080x625")
 root.minsize(480,360)
 root.iconbitmap("images/logo-inmoov.ico")
@@ -187,5 +283,11 @@ moteur_4_ra.pack(fill= X)
 #afficher
 right_arm.pack(fill=X)
 right_arm_full.pack(fill=X)
-
+root.bind("<KeyPress-a>", moteur_1_clavier)
+root.bind("<KeyPress-z>", moteur_2_clavier)
+root.bind("<KeyPress-e>", moteur_3_clavier)
+root.bind("<KeyPress-r>", moteur_4_clavier)
+root.bind("<KeyPress-t>", moteur_5_clavier)
+root.bind("<Left>", soustraction_clavier)
+root.bind("<Right>", adition_clavier)
 root.mainloop()
