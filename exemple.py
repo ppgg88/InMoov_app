@@ -22,7 +22,7 @@ bienvenue.pack()
 ac.pack()
 
 Button(root, text='next', command=show_next).grid(row=1)
-root.mainloop()"""
+root.mainloop()
 
 from gtts import gTTS
 import os
@@ -35,4 +35,17 @@ def speak(text):
     tts.save(filename)
     playsound.playsound(filename)
 
-speak("bonjour tout le monde ")
+speak("bonjour tout le monde ")"""
+import speech_recognition as sr  
+ 
+r  = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Dites quelque chose")
+    audio = r.listen(source)
+try:
+    text = r.recognize_google(audio)
+    print("Vous avez dit : " + text)
+except sr.UnknownValueError:
+    print("L'audio n'as pas été compris")
+except sr.RequestError as e:
+    print("Le service Google Speech API ne fonctionne plus" + format(e))

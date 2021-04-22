@@ -9,7 +9,30 @@ cfg.read('config/info.ini')
 
 scal = -1
 
-    
+def moteur_head_3(position):
+    global moteur_speak
+    moteur_speak.set(position)
+    #mouvement bouche
+    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
+    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
+    print("head 3 : " + str(int(angle)))
+    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
+        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+    else :
+        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+
+def moteur_head_3_speak(position):
+    global moteur_3_h
+    moteur_3_h.set(position)
+    #mouvement bouche
+    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
+    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
+    print("head 3 : " + str(int(angle)))
+    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
+        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+    else :
+        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+
 def show_accueil():
     global index
     screen[index].pack_forget()
@@ -37,7 +60,6 @@ def left_arm_page():
     index = 2
     print("page de gestion du bras gauche")
     screen[index].pack(fill = X)
-
 
 def hand_page():
     print("page de gestion des mains")
@@ -141,6 +163,7 @@ def moteur_5_clavier(k):
             moteur_head_5(x)
         scal = moteur_5_h
 
+#touche <
 def soustraction_clavier(k):
     global moteur_selectioner, scal
     if scal != -1 :
@@ -150,6 +173,7 @@ def soustraction_clavier(k):
         moteur_selectioner(val)
         print(val)
 
+#touche >
 def adition_clavier(k):
     global moteur_selectioner, scal
     if scal != -1 :
@@ -161,24 +185,25 @@ def adition_clavier(k):
 
 def fonction_speak():
     global entrer_text
-    fichier = open("temp_lecture", "w")
-    fichier.write(entrer_text.get())
-    fichier.close()
-    deconnection_robot()
-    os.system("py speak.py")
-    connection_robot()
+    say(entrer_text.get())
 
-
+#touche entrer
 def entrer_clavier(k):
     print("entrer")
     global entrer_text, index
     if index == 6 :
-        fichier = open("temp_lecture", "w")
-        fichier.write(entrer_text.get())
-        fichier.close()
-        deconnection_robot()
-        os.system("py speak.py")
-        connection_robot()
+        say(entrer_text.get())
+        
+
+def say(text):
+    fichier = open("temp_lecture", "w")
+    fichier.write(text)
+    fichier.close()
+    deconnection_robot()
+    os.system("py speak.py")
+    moteur_speak.set(0)
+    moteur_3_h.set(0)
+    connection_robot()
 
 # fenetre principal
 root = Tk()
@@ -190,7 +215,8 @@ root.minsize(480,360)
 root.iconbitmap("images/logo-inmoov.ico")
 root.config(background = str(cfg["page"]["background"]))
 
-screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,7)]
+#creation des diferents ecrans
+screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,8)]
 
 global index
 index = 0
@@ -217,6 +243,10 @@ root.config(menu=menu_root)
 #screen[1] : mouvement tête
 #screen[2] : mouvement bras gauche
 #screen[3] : mouvement bras droit
+#screen[4] : 
+#screen[5] : 
+#screen[6] : fonction parole 
+#screen[7] : 
 
 ###### ACCUEIL #######
 acc = Frame(screen[0], bg=str(cfg["page"]["background"]))
@@ -337,6 +367,9 @@ entrer_text.pack(fill=X)
 #ajouter un bouton
 btn_send = Button(speak_full, text="lancer parole", bg="black", fg="white", command=fonction_speak)
 btn_send.pack(pady = 25, fill=X)
+#moteur bouche
+moteur_speak = Scale(speak_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Mouvement bouche : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_head_3_speak, activebackground= "black")
+moteur_speak.pack(fill= X)
 #ajouter une image
 width, height = 300, 150
 image_speak = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
@@ -364,6 +397,7 @@ root.bind('<Return>', entrer_clavier)
 
 conect_1()
 conect_2()
+say("bonjour je suis" + cfg["robot"]["robot_name"])
 
 root.mainloop()
 fichier = open("temp_lecture", "w")

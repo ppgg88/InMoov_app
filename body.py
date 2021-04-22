@@ -28,17 +28,6 @@ def moteur_head_2(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["elevation_tete_pin"]), int(angle))
 
-def moteur_head_3(position):
-    #mouvement bouche
-    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
-    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
-    print("head 3 : " + str(int(angle)))
-    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
-        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-    else :
-        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-
-
 def moteur_head_4(position):
     #mouvement yeux X
     angle = int(cfg["moteurs"]["yeux_x_tete_max"])-int(cfg["moteurs"]["yeux_x_tete_min"])
