@@ -3,6 +3,7 @@ from arduino import *
 from body import *
 import configparser
 import os
+import tkinter.messagebox
 
 cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
@@ -63,9 +64,11 @@ def left_arm_page():
 
 def hand_page():
     print("page de gestion des mains")
+    tkinter.messagebox.showerror('cette page est en developement','page de gestion des mains encore indisponible')
 
 def stomach_page():
     print("page de gestion du ventre")
+    tkinter.messagebox.showerror('cette page est en developement','page de gestion du ventre encore indisponible')
 
 def speak_page():
     global index
@@ -194,7 +197,6 @@ def entrer_clavier(k):
     if index == 6 :
         say(entrer_text.get())
         
-
 def say(text):
     fichier = open("temp_lecture", "w")
     fichier.write(text)
@@ -222,19 +224,22 @@ global index
 index = 0
 screen[0].pack(fill=X)
 
+#parametre du menu
+
 menu_root = Menu(root)
+
 corps_menu = Menu(menu_root, tearoff = 0)
-corps_menu.add_command(label="tête", command=show_head)
-corps_menu.add_command(label="bras droit", command=right_arm_page)
-corps_menu.add_command(label="bras gauche", command=left_arm_page)
-corps_menu.add_command(label="ventre", command=stomach_page)
-corps_menu.add_command(label="main", command=hand_page)
-menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
-accueil_menu = Menu(menu_root, tearoff = 0)
-accueil_menu.add_command(label="Accueil", command=show_accueil)
+corps_menu.add_command(label="Tête", command=show_head)
+corps_menu.add_command(label="Bras droit", command=right_arm_page)
+corps_menu.add_command(label="Bras gauche", command=left_arm_page)
+corps_menu.add_command(label="Ventre", command=stomach_page)
+corps_menu.add_command(label="Main", command=hand_page)
+
 fonction_menu = Menu(menu_root, tearoff = 0)
-menu_root.add_cascade(label="accueil", menu=accueil_menu)
-fonction_menu.add_command(label="parolles", command=speak_page)
+fonction_menu.add_command(label="paroles", command=speak_page)
+
+menu_root.add_cascade(label="accueil", command=show_accueil)
+menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
 menu_root.add_cascade(label="fonction", menu=fonction_menu)
 root.config(menu=menu_root)
 
