@@ -35,7 +35,7 @@ def speak(text):
     tts.save(filename)
     playsound.playsound(filename)
 
-speak("bonjour tout le monde ")"""
+speak("bonjour tout le monde ")"""   
 import speech_recognition as sr  
  
 r  = sr.Recognizer()
