@@ -2,12 +2,14 @@ from tkinter import *
 from arduino import *
 from body import *
 import configparser
+import os
 
 cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
 
 scal = -1
 
+    
 def show_accueil():
     global index
     screen[index].pack_forget()
@@ -36,19 +38,35 @@ def left_arm_page():
     print("page de gestion du bras gauche")
     screen[index].pack(fill = X)
 
+
 def hand_page():
     print("page de gestion des mains")
 
 def stomach_page():
     print("page de gestion du ventre")
 
-def conect():
-    if connection_robot() :
-        btn.config(bg = "green", command = NONE, text = "CONNECTER")
+def speak_page():
+    global index
+    screen[index].pack_forget()
+    index = 6
+    print("page de gestion des paroles")
+    screen[index].pack(fill = X)
+
+def conect_1():
+    if connection_robot_1() :
+        btn.config(bg = "green", command = NONE, text = "Arduino n°1 : CONNECTER")
         btn.update()
     else :
         btn.config(bg = "black")
         btn.update()
+
+def conect_2():
+    if connection_robot_2() :
+        btn2.config(bg = "green", command = NONE, text = "Arduino n°2 : CONNECTER")
+        btn2.update()
+    else :
+        btn2.config(bg = "black")
+        btn2.update()
 
 # touche a
 def moteur_1_clavier(k):
@@ -114,7 +132,6 @@ def moteur_4_clavier(k):
         def moteur_selectioner(x):
             moteur_right_arm_4(x)
         scal = moteur_4_la
-    moteur_selectioner(90)
 
 #touche t
 def moteur_5_clavier(k):
@@ -123,7 +140,6 @@ def moteur_5_clavier(k):
         def moteur_selectioner(x):
             moteur_head_5(x)
         scal = moteur_5_h
-    moteur_selectioner(90)
 
 def soustraction_clavier(k):
     global moteur_selectioner, scal
@@ -143,7 +159,26 @@ def adition_clavier(k):
         moteur_selectioner(val)
         print(val)
 
+def fonction_speak():
+    global entrer_text
+    fichier = open("temp_lecture", "w")
+    fichier.write(entrer_text.get())
+    fichier.close()
+    deconnection_robot()
+    os.system("py speak.py")
+    connection_robot()
 
+
+def entrer_clavier(k):
+    print("entrer")
+    global entrer_text, index
+    if index == 6 :
+        fichier = open("temp_lecture", "w")
+        fichier.write(entrer_text.get())
+        fichier.close()
+        deconnection_robot()
+        os.system("py speak.py")
+        connection_robot()
 
 # fenetre principal
 root = Tk()
@@ -155,7 +190,7 @@ root.minsize(480,360)
 root.iconbitmap("images/logo-inmoov.ico")
 root.config(background = str(cfg["page"]["background"]))
 
-screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,4)]
+screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,7)]
 
 global index
 index = 0
@@ -171,7 +206,10 @@ corps_menu.add_command(label="main", command=hand_page)
 menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
 accueil_menu = Menu(menu_root, tearoff = 0)
 accueil_menu.add_command(label="Accueil", command=show_accueil)
-menu_root.add_cascade(label="Accueil", menu=accueil_menu)
+fonction_menu = Menu(menu_root, tearoff = 0)
+menu_root.add_cascade(label="accueil", menu=accueil_menu)
+fonction_menu.add_command(label="parolles", command=speak_page)
+menu_root.add_cascade(label="fonction", menu=fonction_menu)
 root.config(menu=menu_root)
 
 
@@ -188,12 +226,14 @@ bienvenue = Label(acc, text="Bienvenue sur l'interface de controle : tu retrouve
 bienvenue.grid(row=0,column=1, sticky=W)
 #info robot
 info_robot = Label(acc_full, justify="left", text=(
-    "Robot : \n   Nom : " + cfg["robot"]["robot_name"] +"\n   Age : " + cfg["robot"]["robot_age"] + " ans\n\nCarte Arduino : \n   Port : " + cfg["robot"]["arduino_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_speed"]
+    "Robot : \n   Nom : " + cfg["robot"]["robot_name"] +"\n   Age : " + cfg["robot"]["robot_age"] + " ans\n\nCarte Arduino n°1 : \n   Port : " + cfg["robot"]["arduino_1_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_1_speed"] + "\n\nCarte Arduino n°2 : \n   Port : " + cfg["robot"]["arduino_2_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_2_speed"]
     ), background = cfg["page"]["background"], font=("Courrier", 12))
 info_robot.pack()
 #ajouter un bouton
-btn = Button(acc_full, text="conexion", bg="black", fg="white", command=conect)
+btn = Button(acc_full, text="conexion arduino n°1", bg="black", fg="white", command=conect_1)
 btn.pack(pady = 25, fill=X)
+btn2 = Button(acc_full, text="conexion arduino n°2", bg="black", fg="white", command=conect_2)
+btn2.pack(pady = 25, fill=X)
 #ajouter une image
 width, height = 300, 150
 image_acc = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
@@ -283,11 +323,50 @@ moteur_4_ra.pack(fill= X)
 #afficher
 right_arm.pack(fill=X)
 right_arm_full.pack(fill=X)
+
+
+###### SPEAK #######
+speak = Frame(screen[6], bg=str(cfg["page"]["background"]))
+speak_full = Frame(screen[6], bg=str(cfg["page"]["background"]))
+#ajouter du texte
+bienvenue_speak = Label(speak, text="Bienvenue sur l'interface de controle de la parole :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue_speak.grid(row=0,column=1, sticky=W)
+#info robot
+entrer_text = Entry(speak_full)
+entrer_text.pack(fill=X)
+#ajouter un bouton
+btn_send = Button(speak_full, text="lancer parole", bg="black", fg="white", command=fonction_speak)
+btn_send.pack(pady = 25, fill=X)
+#ajouter une image
+width, height = 300, 150
+image_speak = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
+canvas = Canvas(speak, width=width, height=height, bg = cfg["page"]["background"], bd=0, highlightthickness=0)
+canvas.create_image(width/2,height/2,image=image_speak)
+canvas.grid(row=0, column=0, sticky=W)
+#afficher
+speak.pack(fill = X)
+speak_full.pack(fill = X)
+
+
 root.bind("<KeyPress-a>", moteur_1_clavier)
 root.bind("<KeyPress-z>", moteur_2_clavier)
 root.bind("<KeyPress-e>", moteur_3_clavier)
 root.bind("<KeyPress-r>", moteur_4_clavier)
 root.bind("<KeyPress-t>", moteur_5_clavier)
+root.bind("<KeyPress-A>", moteur_1_clavier)
+root.bind("<KeyPress-Z>", moteur_2_clavier)
+root.bind("<KeyPress-E>", moteur_3_clavier)
+root.bind("<KeyPress-R>", moteur_4_clavier)
+root.bind("<KeyPress-T>", moteur_5_clavier)
 root.bind("<Left>", soustraction_clavier)
 root.bind("<Right>", adition_clavier)
+root.bind('<Return>', entrer_clavier)
+
+conect_1()
+conect_2()
+
 root.mainloop()
+fichier = open("temp_lecture", "w")
+fichier.write(entrer_text.get())
+fichier.close()
+os.system("py speak.py")
