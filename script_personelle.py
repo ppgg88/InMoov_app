@@ -12,7 +12,7 @@ def fonction_test_1() :
 
 def fonction_test_2() :
     valeur_pin_A0 = arduino1.analogRead(14)
-    tkinter.messagebox.showerror('foncrion 2',('pin A0 : ' + str(valeur_pin_A0)))
+    tkinter.messagebox.showerror('fonction 2',('pin A0 : ' + str(valeur_pin_A0)))
 
 fonction_liste = [
         #["nom de la fonction pour le menu", nom_de_la_fonction_dans_python]
