@@ -8,7 +8,7 @@
 Toute les configurations se trouves dans le fichier ".\config\info.ini"
 pour l'instalation d'une voix masculine un tuto est à réaliser
 
-s'assurer que les librairie tkinter, configparser, pyttsx3, random, multiprocessing et time sont corectements instaler sur la machine : 
+s'assurer que les librairie _tkinter, configparser, pyttsx3, random, multiprocessing et time_ sont corectements instaler sur la machine : 
 
  Avec pip :
 ```python
