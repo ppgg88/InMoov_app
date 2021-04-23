@@ -38,5 +38,5 @@ call :LOG > %LOGFILE%
 exit /B
 
 :LOG
-py main.py
+py index.py
 exit
