@@ -13,6 +13,7 @@ scal = -1
 inti_arduino_1 = False
 inti_arduino_2 = False
 
+
 def moteur_head_3(position):
     global moteur_speak
     moteur_speak.set(position)
@@ -219,6 +220,7 @@ def say(text):
     moteur_3_h.set(0)
     connection_robot()
 
+
 # fenetre principal
 root = Tk()
 
@@ -232,9 +234,10 @@ root.config(background = str(cfg["page"]["background"]))
 #creation des diferents ecrans
 screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,8)]
 
+
 global index
 index = 0
-screen[0].pack(fill=X)
+#screen[0].pack(fill=X)
 
 #parametre du menu
 
@@ -414,10 +417,3 @@ root.bind('<Return>', entrer_clavier)
 
 conect_1()
 conect_2()
-say("bonjour je suis" + cfg["robot"]["robot_name"])
-
-root.mainloop()
-fichier = open("temp_lecture", "w")
-fichier.write(entrer_text.get())
-fichier.close()
-os.system("py speak.py")

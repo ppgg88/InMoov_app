@@ -84,16 +84,18 @@ def controle_moteur_2(pin, valeur):
 
 def deconnection_robot_1():
     arduino_1.close()
+    print("arduino n°1 : deconecter")
 
 def deconnection_robot_2():
     arduino_2.close()
+    print("arduino n°2 : deconecter")
 
 def deconnection_robot():
     global conexion_2, arduino_2, conexion, arduino_1
     if conexion :
-        arduino_1.close()
+        deconnection_robot_1()
     if conexion_2 :
-        arduino_2.close()
+        deconnection_robot_2()
 
 def connection_robot():
     connection_robot_1()
