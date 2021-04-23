@@ -35,16 +35,29 @@ void setup() {
   s12.attach(12);
   s13.attach(13);
   Serial.begin(500000);
+  //Serial.begin(115200);
   Serial.setTimeout(1);
 }
 
 void loop() {
   if (Serial.available()) {
-    int val = Serial.readString().toInt();
-    pin = floor(val/1000);
-    pos = val - (pin * 1000); 
-    Serial.println(val);
-    Serial.println(pin);
+    long val = Serial.readString().toInt();
+    if (val >= 100000 && val < 110000){
+      int etat = val % 2;
+      int pin = (val-100000-etat)/100;
+      pinMode(pin, OUTPUT);
+      digitalWrite(pin, etat);
+    }
+    if (val >= 110000 && val < 120000){
+      int pin = val-110000;
+      pinMode(pin, INPUT);
+      int read_ = analogRead(pin);
+      Serial.println(read_);
+    }
+    else{
+      pin = floor(val/1000);
+      pos = val - (pin * 1000); 
+    }
       if (pin == 0) {
         s0.write(pos);
         Serial.write("0 :: ");

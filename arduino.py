@@ -84,17 +84,58 @@ def controle_moteur_2(pin, valeur):
 
 def deconnection_robot_1():
     arduino_1.close()
+    print("arduino n°1 : deconecter")
 
 def deconnection_robot_2():
     arduino_2.close()
+    print("arduino n°2 : deconecter")
 
 def deconnection_robot():
     global conexion_2, arduino_2, conexion, arduino_1
     if conexion :
-        arduino_1.close()
+        deconnection_robot_1()
     if conexion_2 :
-        arduino_2.close()
+        deconnection_robot_2()
 
 def connection_robot():
     connection_robot_1()
     connection_robot_2()
+
+def digitalWrite_arduino_1(pin, etat):
+    """digitalWrite executer sur la carte ardunio 1"""
+    global conexion, arduino_1, sio
+    if conexion == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_1()
+    if conexion == True :
+        v = (100000 + (pin*100) + etat)
+        arduino_1.write(str(v).encode("ascii"))
+        print(str(v))
+        sleep(0.01)
+
+def analogRead_arduino_1(pin):
+    """analogRead executer sur la carte ardunio 1"""
+    global conexion, arduino_1, sio
+    if conexion == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_1()
+    if conexion == True :
+        v = (110000 + pin)
+        arduino_1.write(str(v).encode("ascii"))
+        print(str(v))
+        sleep(0.01)
+        sio.flush() # it is buffering. required to get the data out *now*
+        result = sio.readline()
+        return(int(result))
+
+class arduino1 :
+    def digitalWrite(pin,etat):
+        digitalWrite_arduino_1(pin, etat)
+    def analogRead(pin):
+        return analogRead_arduino_1(pin)
+    def connection():
+        connection_robot_1()
+    def deconnection():
+        deconnection_robot_1()
+
+#print(analogRead_arduino_1(14))
