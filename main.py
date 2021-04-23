@@ -10,6 +10,9 @@ cfg.read('config/info.ini')
 
 scal = -1
 
+inti_arduino_1 = False
+inti_arduino_2 = False
+
 def moteur_head_3(position):
     global moteur_speak
     moteur_speak.set(position)
@@ -78,20 +81,29 @@ def speak_page():
     screen[index].pack(fill = X)
 
 def conect_1():
+    global inti_arduino_1
     if connection_robot_1() :
         btn.config(bg = "green", command = NONE, text = "Arduino n°1 : CONNECTER")
         btn.update()
     else :
         btn.config(bg = "black")
         btn.update()
+        if inti_arduino_1 :
+            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°1 Impossible')
+    inti_arduino_1 = True
 
 def conect_2():
+    global inti_arduino_2
     if connection_robot_2() :
         btn2.config(bg = "green", command = NONE, text = "Arduino n°2 : CONNECTER")
         btn2.update()
     else :
         btn2.config(bg = "black")
         btn2.update()
+        if inti_arduino_2 :
+            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°2 Impossible')
+    inti_arduino_2 = True
+
 
 # touche a
 def moteur_1_clavier(k):
