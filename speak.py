@@ -5,12 +5,11 @@ from random import randint
 from multiprocessing import Process
 from time import *
 
-longeur = 17
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 
 engine.setProperty('rate', int(cfg["robot"]["read_speed"]))
-engine.setProperty("voice", voices[3].id)
+engine.setProperty("voice", voices[int(cfg["robot"]["voice_id"])].id)
 
 def speech(t):
     print("say : " + t)
