@@ -105,7 +105,6 @@ def conect_2():
             tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°2 Impossible')
     inti_arduino_2 = True
 
-
 # touche a
 def moteur_1_clavier(k):
     global moteur_selectioner, index, scal,  moteur_1_h, moteur_2_la, moteur_3_ra
