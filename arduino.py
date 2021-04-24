@@ -16,19 +16,21 @@ def connection_robot_1():
     port_available = serial.tools.list_ports.comports(include_links=False)
     #print(port_available)
     if len(port_available)>0 :
-        print("connection en cours :")
+        print("connection en cours à arduino n°1:")
         try :
             arduino_1 = serial.Serial(cfg["robot"]["arduino_1_com"], int(cfg["robot"]["arduino_1_speed"]), timeout=1)
             sio = io.TextIOWrapper(io.BufferedRWPair(arduino_1, arduino_1))
-            print("conection OK")
+            print("conection arduino n°1 OK")
             conexion = True
             return(conexion)
         except :
             print("erreur inconue sur le port : " + cfg["robot"]["arduino_1_com"])
+            print("conection arduino n°1 echouer")
             conexion = False
             return(conexion)
     else :
         print("erreur d'ouverture du port : " + cfg["robot"]["arduino_1_com"])
+        print("conection arduino n°1 echouer")
         conexion = False
         return(conexion)
 
@@ -38,19 +40,21 @@ def connection_robot_2():
     port_available = serial.tools.list_ports.comports(include_links=False)
     #print(port_available)
     if len(port_available)>0 :
-        print("connection en cours :")
+        print("connection en cours à arduino n°2 :")
         try :
             arduino_2 = serial.Serial(cfg["robot"]["arduino_2_com"], int(cfg["robot"]["arduino_2_speed"]), timeout=1)
             sio_2 = io.TextIOWrapper(io.BufferedRWPair(arduino_2, arduino_2))
-            print("conection OK")
+            print("conection arduino n°2 OK")
             conexion_2 = True
             return(conexion_2)
         except :
             print("erreur inconue sur le port : " + cfg["robot"]["arduino_2_com"])
+            print("conection arduino n°2 echouer")
             conexion_2 = False
             return(conexion_2)
     else :
         print("erreur d'ouverture du port : " + cfg["robot"]["arduino_2_com"])
+        print("conection arduino n°2 echouer")
         conexion_2 = False
         return(conexion_2)
 

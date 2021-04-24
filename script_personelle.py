@@ -12,12 +12,13 @@ def fonction_test_1() :
     etat_1 = not(etat_1)
 
 def fonction_test_2() :
-    arduino1.pinMode(14,0)
-    valeur_pin_A0 = arduino1.analogRead(14)
+    arduino2.pinMode(14,0)
+    valeur_pin_A0 = arduino2.analogRead(14)
     tkinter.messagebox.showerror('fonction 2',('pin A0 : ' + str(valeur_pin_A0)))
 
+#ajouter dans cette liste vos fontion pour les retrouver dans le menu de l'aplication
 fonction_liste = [
         #["nom de la fonction pour le menu", nom_de_la_fonction_dans_python]
-        ["switch arduino pin 13", fonction_test_1], 
-        ["lecture analogique A0", fonction_test_2]
+        ["switch arduino n°1 pin 13", fonction_test_1], 
+        ["lecture analogique A0 de ardunio n°2", fonction_test_2]
     ]
