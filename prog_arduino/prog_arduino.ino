@@ -67,13 +67,13 @@ void loop() {
         pinMode(pin, INPUT);
       }
       else if (etat == 1){
+      Serial.println(pin);
         pinMode(pin, OUTPUT);  
       }
     }
     else if (val >= 200000 && val < 300000){
       val = val-200000;
       int pin = int(val/1000);
-      Serial.println(pin);
       int valeur = val - (pin*1000);
       Serial.println(valeur);
       analogWrite(pin, valeur);

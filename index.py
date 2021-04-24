@@ -7,5 +7,5 @@ for i in fonction_liste :
 menu_root.add_cascade(label="fonctions perssonalisées", menu=fonction_perso_menu)
 
 screen[0].pack(fill=X)
-say("Bonjour je suis" + cfg["robot"]["robot_name"])
+say("Bonjour, je suis" + cfg["robot"]["robot_name"])
 root.mainloop()

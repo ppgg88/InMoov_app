@@ -67,8 +67,11 @@ def left_arm_page():
     screen[index].pack(fill = X)
 
 def hand_page():
+    global index
+    screen[index].pack_forget()
+    index = 5
     print("page de gestion des mains")
-    tkinter.messagebox.showerror('cette page est en developement','page de gestion des mains encore indisponible')
+    screen[index].pack(fill = X)
 
 def stomach_page():
     global index
@@ -267,7 +270,7 @@ root.config(menu=menu_root)
 #screen[2] : mouvement bras gauche
 #screen[3] : mouvement bras droit
 #screen[4] : mouvement bassin
-#screen[5] : 
+#screen[5] : gestion des main
 #screen[6] : fonction parole 
 #screen[7] : 
 
@@ -398,9 +401,57 @@ moteur_2_b.pack(fill= X)
 bassin.pack(fill=X)
 bassin_full.pack(fill=X)
 
-
-
-
+###### HAND #######
+hand = Frame(screen[5], bg=str(cfg["page"]["background"]))
+hand_1 = Frame(screen[5], bg=str(cfg["page"]["background"]))
+hand_2 = Frame(screen[5], bg=str(cfg["page"]["background"]))
+#ajouter du texte
+bienvenue = Label(hand, text="Bienvenue sur l'interface de controle de la tête :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue.grid(row=0,column=1, sticky=W)
+#images
+width, height = 300, 150
+image_hand = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
+canvas = Canvas(hand, width=width, height=height, bg = cfg["page"]["background"], bd=0, highlightthickness=0)
+canvas.create_image(width/2,height/2,image=image_hand)
+canvas.grid(row=0, column=0, sticky=W)
+#controle moteur
+Grid.rowconfigure(hand_1, 0, weight=1)
+Grid.columnconfigure(hand_1, 0, weight=1)
+Grid.columnconfigure(hand_1, 1, weight=1)
+moteur_lh = Scale(hand_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("MAIN GAUCHE : "),bg="#dddddd", bd=0, highlightthickness=0, command=moteur_hand_left, activebackground= "black")
+moteur_lh.grid(row=0, column=0, padx=(10, 10), sticky=N+S+E+W)
+moteur_rh = Scale(hand_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("MAIN DROITE : "), bg="#dddddd", bd=0, highlightthickness=0, command=moteur_hand_right , activebackground= "black")
+moteur_rh.grid(row=0, column=1, padx=(10,10), sticky=N+S+E+W)
+    #hand
+Grid.rowconfigure(hand_2, 0, weight=1)
+Grid.columnconfigure(hand_2, 1, weight=1)
+Grid.columnconfigure(hand_2, 0, weight=1)
+    #left hand
+moteur_1_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_1, activebackground= "black")
+moteur_1_lh.grid(row=0, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_2_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_2 , activebackground= "black")
+moteur_2_lh.grid(row=1, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_3_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_3, activebackground= "black")
+moteur_3_lh.grid(row=2, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_4_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_4, activebackground= "black")
+moteur_4_lh.grid(row=3, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_5_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_5, activebackground= "black")
+moteur_5_lh.grid(row=4, column=0, sticky=N+S+E+W, padx=(10, 10))
+    #Right hand
+moteur_1_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_1, activebackground= "black")
+moteur_1_rh.grid(row=0, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_2_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_2 , activebackground= "black")
+moteur_2_rh.grid(row=1, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_3_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_3, activebackground= "black")
+moteur_3_rh.grid(row=2, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_4_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_4, activebackground= "black")
+moteur_4_rh.grid(row=3, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_5_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_5, activebackground= "black")
+moteur_5_rh.grid(row=4, column=1, sticky=N+S+E+W, padx=(10,10))
+#afficher
+hand.pack(fill=X)
+hand_1.pack(fill=X)
+hand_2.pack(fill=X)
 
 ###### SPEAK #######
 speak = Frame(screen[6], bg=str(cfg["page"]["background"]))
