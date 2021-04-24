@@ -71,8 +71,12 @@ def hand_page():
     tkinter.messagebox.showerror('cette page est en developement','page de gestion des mains encore indisponible')
 
 def stomach_page():
-    print("page de gestion du ventre")
-    tkinter.messagebox.showerror('cette page est en developement','page de gestion du ventre encore indisponible')
+    global index
+    screen[index].pack_forget()
+    index = 4
+    print("page de gestion du bassin")
+    screen[index].pack(fill = X)
+
 
 def speak_page():
     global index
@@ -262,7 +266,7 @@ root.config(menu=menu_root)
 #screen[1] : mouvement tête
 #screen[2] : mouvement bras gauche
 #screen[3] : mouvement bras droit
-#screen[4] : 
+#screen[4] : mouvement bassin
 #screen[5] : 
 #screen[6] : fonction parole 
 #screen[7] : 
@@ -373,6 +377,30 @@ moteur_4_ra.pack(fill= X)
 right_arm.pack(fill=X)
 right_arm_full.pack(fill=X)
 
+###### BASSIN #######
+bassin = Frame(screen[4], bg=str(cfg["page"]["background"]))
+bassin_full = Frame(screen[4], bg=str(cfg["page"]["background"]))
+#ajouter du texte
+bienvenue = Label(bassin, text="Bienvenue sur l'interface de controle du bassin :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue.grid(row=0,column=1, sticky=W)
+#images
+width, height = 300, 150
+image_bassin = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
+canvas = Canvas(bassin, width=width, height=height, bg = cfg["page"]["background"], bd=0, highlightthickness=0)
+canvas.create_image(width/2,height/2,image=image_bassin)
+canvas.grid(row=0, column=0, sticky=W)
+#controle moteur
+moteur_1_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("bascule : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_1, activebackground= "black")
+moteur_1_b.pack(fill= X)
+moteur_2_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("rotation : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_2 , activebackground= "black")
+moteur_2_b.pack(fill= X)
+#afficher
+bassin.pack(fill=X)
+bassin_full.pack(fill=X)
+
+
+
+
 
 ###### SPEAK #######
 speak = Frame(screen[6], bg=str(cfg["page"]["background"]))
@@ -398,7 +426,6 @@ canvas.grid(row=0, column=0, sticky=W)
 #afficher
 speak.pack(fill = X)
 speak_full.pack(fill = X)
-
 
 root.bind("<KeyPress-a>", moteur_1_clavier)
 root.bind("<KeyPress-z>", moteur_2_clavier)

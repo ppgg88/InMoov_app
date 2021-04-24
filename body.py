@@ -127,3 +127,24 @@ def moteur_right_arm_4(position):
         controle_moteur_1(int(cfg["moteurs"]["coude_right_pin"]), int(angle))
     else :
         controle_moteur_2(int(cfg["moteurs"]["coude_right_pin"]), int(angle))
+
+def moteur_bassin_1(position):
+    #rotation tete
+    angle = int(cfg["moteurs"]["bascule_bassin_max"])-int(cfg["moteurs"]["bascule_bassin_min"])
+    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bascule_bassin_min"])
+    print("bassin 1 : " + str(int(angle)))
+    if int(cfg["moteurs"]["bascule_bassin_arduino"]) == 1 :
+        controle_moteur_1(int(cfg["moteurs"]["bascule_bassin_pin"]), int(angle))
+    else :
+        controle_moteur_2(int(cfg["moteurs"]["bascule_bassin_pin"]), int(angle))
+    
+def moteur_bassin_2(position):
+    #rotation tete
+    angle = int(cfg["moteurs"]["rotation_bassin_max"])-int(cfg["moteurs"]["rotation_bassin_min"])
+    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["rotation_bassin_min"])
+    print("bassin 2 : " + str(int(angle)))
+    if int(cfg["moteurs"]["rotation_bassin_arduino"]) == 1 :
+        controle_moteur_1(int(cfg["moteurs"]["rotation_bassin_pin"]), int(angle))
+    else :
+        controle_moteur_2(int(cfg["moteurs"]["rotation_tete_pin"]), int(angle))
+    
