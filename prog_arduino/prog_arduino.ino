@@ -41,23 +41,46 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
-    long val = Serial.readString().toInt();
+    unsigned long val = Serial.readString().toInt();
     if (val >= 100000 && val < 110000){
       int etat = val % 2;
       int pin = (val-100000-etat)/100;
-      pinMode(pin, OUTPUT);
       digitalWrite(pin, etat);
     }
-    if (val >= 110000 && val < 120000){
+    else if (val >= 110000 && val < 120000){
       int pin = val-110000;
-      pinMode(pin, INPUT);
       int read_ = analogRead(pin);
       Serial.println(read_);
+    }
+    else if (val >= 120000 && val < 130000){
+      int pin = val-120000;
+      pinMode(pin, INPUT);
+      int read_ = digitalRead(pin);
+      Serial.println(read_);
+    }
+    else if (val >= 130000 && val < 140000){
+      int etat = val % 2;
+      int pin = val-130000-etat;
+      pin = pin/100;
+      //etat = 1 : OUTPUT  et etat = 0 : INPUT
+      if (etat == 0){
+        pinMode(pin, INPUT);
+      }
+      else if (etat == 1){
+        pinMode(pin, OUTPUT);  
+      }
+    }
+    else if (val >= 200000 && val < 300000){
+      val = val-200000;
+      int pin = int(val/1000);
+      Serial.println(pin);
+      int valeur = val - (pin*1000);
+      Serial.println(valeur);
+      analogWrite(pin, valeur);
     }
     else{
       pin = floor(val/1000);
       pos = val - (pin * 1000); 
-    }
       if (pin == 0) {
         s0.write(pos);
         Serial.write("0 :: ");
@@ -127,7 +150,7 @@ void loop() {
         s13.write(pos);
         Serial.write("13 :: ");
         Serial.write(pos);
-      }
+      }}
 }
   delay(10);
 }

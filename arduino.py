@@ -109,9 +109,7 @@ def digitalWrite_arduino_1(pin, etat):
         connection_robot_1()
     if conexion == True :
         v = (100000 + (pin*100) + etat)
-        arduino_1.write(str(v).encode("ascii"))
-        print(str(v))
-        sleep(0.01)
+        send_arduino_1(v)
 
 def analogRead_arduino_1(pin):
     """analogRead executer sur la carte ardunio 1"""
@@ -121,21 +119,144 @@ def analogRead_arduino_1(pin):
         connection_robot_1()
     if conexion == True :
         v = (110000 + pin)
-        arduino_1.write(str(v).encode("ascii"))
-        print(str(v))
-        sleep(0.01)
-        sio.flush() # it is buffering. required to get the data out *now*
+        send_arduino_1(v)
+        sio.flush()
         result = sio.readline()
         return(int(result))
 
+def digitalRead_arduino_1(pin):
+    """analogRead executer sur la carte ardunio 1"""
+    global conexion, arduino_1, sio
+    if conexion == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_1()
+    if conexion == True :
+        v = (120000 + pin)
+        send_arduino_1(v)
+        sio.flush()
+        result = sio.readline()
+        return(int(result))
+
+def analogWrite_arduino_1(pin, valeur):
+    """analoglWrite executer sur la carte ardunio 1 -- val entre 0 et 255"""
+    global conexion, arduino_1, sio
+    if conexion == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_1()
+    if conexion == True :
+        v = (200000 + (pin*1000) + valeur)
+        send_arduino_1(v)
+
+def pinMode_arduino_1(pin, etat):
+    """analoglWrite executer sur la carte ardunio 1 -- val entre 0 et 255"""
+    global conexion, arduino_1, sio
+    if conexion == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_1()
+    if conexion == True :
+        v = (130000 + (pin*100) + etat)
+        send_arduino_1(v)
+
+def send_arduino_1(data):
+    arduino_1.write(str(data).encode("ascii"))
+    print("arduino n°1 <-- " + str(data))
+    sleep(0.01)
+
+def digitalWrite_arduino_2(pin, etat):
+    """digitalWrite executer sur la carte ardunio 2"""
+    global conexion_2, arduino_2, sio_2
+    if conexion_2 == False :
+        print("l'arduino n°2 n'est pas conecter")
+        connection_robot_2()
+    if conexion_2 == True :
+        v = (100000 + (pin*100) + etat)
+        send_arduino_2(v)
+
+def analogRead_arduino_2(pin):
+    """analogRead executer sur la carte ardunio 2"""
+    global conexion_2, arduino_2, sio_2
+    if conexion_2 == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_2()
+    if conexion_2 == True :
+        v = (110000 + pin)
+        send_arduino_2(v)
+        sio_2.flush()
+        result = sio_2.readline()
+        return(int(result))
+
+def digitalRead_arduino_2(pin):
+    """analogRead executer sur la carte ardunio 2"""
+    global conexion_2, arduino_2, sio_2
+    if conexion_2 == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_2()
+    if conexion_2 == True :
+        v = (120000 + pin)
+        send_arduino_2(v)
+        sio_2.flush()
+        result = sio_2.readline()
+        return(int(result))
+
+def analogWrite_arduino_2(pin, valeur):
+    """analoglWrite executer sur la carte ardunio 2 -- val entre 0 et 255"""
+    global conexion_2, arduino_2, sio_2
+    if conexion_2 == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_2()
+    if conexion_2 == True :
+        v = (200000 + (pin*1000) + valeur)
+        send_arduino_2(v)
+
+def pinMode_arduino_2(pin, etat):
+    """analoglWrite executer sur la carte ardunio 2 -- val entre 0 et 255"""
+    global conexion_2, arduino_2, sio_2
+    if conexion_2 == False :
+        print("l'arduino n°1 n'est pas conecter")
+        connection_robot_2()
+    if conexion_2 == True :
+        v = (130000 + (pin*100) + etat)
+        send_arduino_2(v)
+
+def send_arduino_2(data):
+    arduino_2.write(str(data).encode("ascii"))
+    print("arduino n°2 <-- " + str(data))
+    sleep(0.01)
+
 class arduino1 :
+    def pinMode(pin, etat):
+        """etat == 0 : INPUT // etat==1 : OUTPUT"""
+        pinMode_arduino_1(pin, etat)
     def digitalWrite(pin,etat):
+        """etat == 0 : LOW // etat==1 : HIGH"""
         digitalWrite_arduino_1(pin, etat)
+    def analogWrite(pin,valeur):
+        """valeur dans [ 0 ; 255 ]""" 
+        analogWrite_arduino_1(pin, valeur)
     def analogRead(pin):
         return analogRead_arduino_1(pin)
+    def digitalRead(pin):
+        return digitalRead_arduino_1(pin)
     def connection():
         connection_robot_1()
     def deconnection():
         deconnection_robot_1()
 
-#print(analogRead_arduino_1(14))
+class arduino2 :
+    def pinMode(pin, etat):
+        """etat == 0 : INPUT // etat==1 : OUTPUT"""
+        pinMode_arduino_2(pin, etat)
+    def digitalWrite(pin,etat):
+        """etat == 0 : LOW // etat==1 : HIGH"""
+        digitalWrite_arduino_2(pin, etat)
+    def analogWrite(pin,valeur):
+        """valeur dans [ 0 ; 255 ]""" 
+        analogWrite_arduino_2(pin, valeur)
+    def analogRead(pin):
+        return analogRead_arduino_2(pin)
+    def digitalRead(pin):
+        return digitalRead_arduino_2(pin)
+    def connection():
+        connection_robot_2()
+    def deconnection():
+        deconnection_robot_2()
