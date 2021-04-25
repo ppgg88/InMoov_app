@@ -53,4 +53,61 @@ for i in range(0,10):
 
 ## Utilisation des fonctions de mouvements
 
-*cette fonctionalité est en developement
+Pour utiliser ces fonctions dans script_perssonel.py verifier que la ligne ```from body import *``` se trouve bien au debut du fichier
+
+le port de la/les carte(s) arduino doit etre renseigner dans **config/info.ini** rubrique [robot]
+
+la carte et le pin associer à chaques moteurs doit etre renseigner dans **config/info.ini** rubrique [moteurs]
+
+la comande est la suivante : 
+
+**```moove.partie_du_corp.moteur(valeur_en_% : int)```**
+
+**liste de partie du corp :**
+* ```moove.head``` : pour selectioner la tête
+* ```moove.right_arm``` : pour selectioner le bras droit
+* ```moove.left_arm``` : pour selectioner le bras gauche
+* ```moove.right_hand``` : pour selectioner la main droite
+* ```moove.left_hand``` : pour selectioner la main gauche
+* ```moove.pelvis``` : pour selectioner les hanches
+
+#### head : tête (liste des moteurs)
+* ```rotation(valeur)``` : pour le mouvement de rotation
+* ```up_down(valeur)``` : pour le mouvement haut-bas
+* ```mouth(valeur)``` : pour le mouvement de la bouche
+* ```eyes_x(valeur)``` : pour le mouvement des yeux en x
+* ```eyes_y(valeur)``` : pour le mouvement des yeux en y
+
+#### arm : bras (liste des moteurs)
+* ```shoulder_x(valeur)``` : pour le mouvement de l'epaule en x
+* ```shoulder_y(valeur)``` : pour le mouvement de l'epaule en y
+* ```shoulder_y(valeur)``` : pour le mouvement de l'epaule en z
+* ```elbow(valeur)``` : pour le mouvement du coude
+
+#### pelvis : bassin (liste des moteurs)
+* ```rocker(valeur)``` : pour le mouvement de balencier
+* ```rotation(valeur)``` : pour le mouvement de rotation
+
+#### hand : main (liste des moteurs)
+* ```pouce(valeur)``` : pour le mouvement de rotation
+* ```index(valeur)``` : pour le mouvement haut-bas
+* ```majeur(valeur)``` : pour le mouvement de la bouche
+* ```annulaire(valeur)``` : pour le mouvement des yeux en x
+* ```auriculaire(valeur)``` : pour le mouvement des yeux en y
+* ```all(valeur)``` : pour le mouvement des yeux en y
+
+### Exemple : faire ouvrir et fermer la bouche 5 fois au maximum
+```python
+from body import *
+from time import sleep
+
+arduino1.connection()
+ardunio1.pinMode(13, 1)
+
+for i in range(0,5):
+  moove.head.mouth(100) ### On ouvre la bouche à 100% (à la valeur max indiquer dans config/info.ini)
+  sleep(1)
+  moove.head.mouth(0) ### on ferme la bouche à 0% (à la valeur min indiquer dans config/info.ini)
+  sleep(1)
+```
+
