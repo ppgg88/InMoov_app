@@ -32,14 +32,14 @@ corps_menu.add_command(label="Tête", command=show_head)
 corps_menu.add_command(label="Bras droit", command=right_arm_page)
 corps_menu.add_command(label="Bras gauche", command=left_arm_page)
 corps_menu.add_command(label="Ventre", command=stomach_page)
-corps_menu.add_command(label="Main", command=hand_page)
+corps_menu.add_command(label="Mains", command=hand_page)
 
 fonction_menu = Menu(menu_root, tearoff = 0)
-fonction_menu.add_command(label="paroles", command=speak_page)
+fonction_menu.add_command(label="Parole", command=speak_page)
 
-menu_root.add_cascade(label="accueil", command=show_accueil)
+menu_root.add_cascade(label="Accueil", command=show_accueil)
 menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
-menu_root.add_cascade(label="fonction", menu=fonction_menu)
+menu_root.add_cascade(label="Fonction", menu=fonction_menu)
 root.config(menu=menu_root)
 
 
@@ -56,17 +56,17 @@ root.config(menu=menu_root)
 acc = Frame(screen[0], bg=str(cfg["page"]["background"]))
 acc_full = Frame(screen[0], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(acc, text="Bienvenue sur l'interface de controle : tu retrouvera ici toutes les informations relative à ton robot :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(acc, text="Bienvenue sur l'interface de contrôle : tu retrouveras ici toutes les informations relatives à ton robot :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #info robot
 info_robot = Label(acc_full, justify="left", text=(
-    "Robot : \n   Nom : " + cfg["robot"]["robot_name"] +"\n   Age : " + cfg["robot"]["robot_age"] + " ans\n\nCarte Arduino n°1 : \n   Port : " + cfg["robot"]["arduino_1_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_1_speed"] + "\n\nCarte Arduino n°2 : \n   Port : " + cfg["robot"]["arduino_2_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_2_speed"]
+    "Carte d'identité : \n   Nom : " + cfg["robot"]["robot_name"] +"\n   Age : " + cfg["robot"]["robot_age"] + " ans\n\nCarte Arduino n°1 : \n   Port : " + cfg["robot"]["arduino_1_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_1_speed"] + "\n\nCarte Arduino n°2 : \n   Port : " + cfg["robot"]["arduino_2_com"] + "\n   Baudrate : " + cfg["robot"]["arduino_2_speed"]
     ), background = cfg["page"]["background"], font=("Courrier", 12))
 info_robot.pack()
 #ajouter un bouton
-btn = Button(acc_full, text="conexion arduino n°1", bg="black", fg="white", command=conect_1)
+btn = Button(acc_full, text="Connexion arduino n°1", bg="black", fg="white", command=conect_1)
 btn.pack(pady = 25, fill=X)
-btn2 = Button(acc_full, text="conexion arduino n°2", bg="black", fg="white", command=conect_2)
+btn2 = Button(acc_full, text="Connexion arduino n°2", bg="black", fg="white", command=conect_2)
 btn2.pack(pady = 25, fill=X)
 #ajouter une image
 width, height = 300, 150
@@ -83,7 +83,7 @@ acc_full.pack(fill = X)
 head = Frame(screen[1], bg=str(cfg["page"]["background"]))
 head_full = Frame(screen[1], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(head, text="Bienvenue sur l'interface de controle de la tête :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(head, text="Bienvenue sur l'interface de contrôle de la tête :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #images
 width, height = 300, 150
@@ -111,7 +111,7 @@ head_full.pack(fill=X)
 left_arm = Frame(screen[2], bg=str(cfg["page"]["background"]))
 left_arm_full = Frame(screen[2], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(left_arm, text="Bienvenue sur l'interface de controle du bras gauche :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(left_arm, text="Bienvenue sur l'interface de contrôle du bras gauche :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #images
 width, height = 300, 150
@@ -120,11 +120,11 @@ canvas = Canvas(left_arm, width=width, height=height, bg = cfg["page"]["backgrou
 canvas.create_image(width/2,height/2,image=image_left_arm)
 canvas.grid(row=0, column=0, sticky=W)
 #controle moteur
-moteur_1_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_1, activebackground= "black")
+moteur_1_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_1, activebackground= "black")
 moteur_1_la.pack(fill= X)
-moteur_2_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule Y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_2 , activebackground= "black")
+moteur_2_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule Y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_2 , activebackground= "black")
 moteur_2_la.pack(fill= X)
-moteur_3_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_3, activebackground= "black")
+moteur_3_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_3, activebackground= "black")
 moteur_3_la.pack(fill= X)
 moteur_4_la = Scale(left_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Coude : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_left_arm_4, activebackground= "black")
 moteur_4_la.pack(fill= X)
@@ -137,7 +137,7 @@ left_arm_full.pack(fill=X)
 right_arm = Frame(screen[3], bg=str(cfg["page"]["background"]))
 right_arm_full = Frame(screen[3], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(right_arm, text="Bienvenue sur l'interface de controle du bras droite :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(right_arm, text="Bienvenue sur l'interface de contrôle du bras droite :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #images
 width, height = 300, 150
@@ -146,11 +146,11 @@ canvas = Canvas(right_arm, width=width, height=height, bg = cfg["page"]["backgro
 canvas.create_image(width/2,height/2,image=image_right_arm)
 canvas.grid(row=0, column=0, sticky=W)
 #controle moteur
-moteur_1_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_1, activebackground= "black")
+moteur_1_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_1, activebackground= "black")
 moteur_1_ra.pack(fill= X)
-moteur_2_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule Y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_2 , activebackground= "black")
+moteur_2_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule Y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_2 , activebackground= "black")
 moteur_2_ra.pack(fill= X)
-moteur_3_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("epaule Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_3, activebackground= "black")
+moteur_3_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_3, activebackground= "black")
 moteur_3_ra.pack(fill= X)
 moteur_4_ra = Scale(right_arm_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Coude : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_right_arm_4, activebackground= "black")
 moteur_4_ra.pack(fill= X)
@@ -162,7 +162,7 @@ right_arm_full.pack(fill=X)
 bassin = Frame(screen[4], bg=str(cfg["page"]["background"]))
 bassin_full = Frame(screen[4], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(bassin, text="Bienvenue sur l'interface de controle du bassin :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(bassin, text="Bienvenue sur l'interface de contrôle du bassin :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #images
 width, height = 300, 150
@@ -171,9 +171,9 @@ canvas = Canvas(bassin, width=width, height=height, bg = cfg["page"]["background
 canvas.create_image(width/2,height/2,image=image_bassin)
 canvas.grid(row=0, column=0, sticky=W)
 #controle moteur
-moteur_1_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("bascule : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_1, activebackground= "black")
+moteur_1_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Bascule : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_1, activebackground= "black")
 moteur_1_b.pack(fill= X)
-moteur_2_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("rotation : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_2 , activebackground= "black")
+moteur_2_b = Scale(bassin_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Rotation : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_bassin_2 , activebackground= "black")
 moteur_2_b.pack(fill= X)
 #afficher
 bassin.pack(fill=X)
@@ -184,7 +184,7 @@ hand = Frame(screen[5], bg=str(cfg["page"]["background"]))
 hand_1 = Frame(screen[5], bg=str(cfg["page"]["background"]))
 hand_2 = Frame(screen[5], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue = Label(hand, text="Bienvenue sur l'interface de controle de la tête :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue = Label(hand, text="Bienvenue sur l'interface de contrôle des mains :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue.grid(row=0,column=1, sticky=W)
 #images
 width, height = 300, 150
@@ -205,26 +205,26 @@ Grid.rowconfigure(hand_2, 0, weight=1)
 Grid.columnconfigure(hand_2, 1, weight=1)
 Grid.columnconfigure(hand_2, 0, weight=1)
     #left hand
-moteur_1_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_1, activebackground= "black")
+moteur_1_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_1, activebackground= "black")
 moteur_1_lh.grid(row=0, column=0, sticky=N+S+E+W, padx=(10, 10))
-moteur_2_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_2 , activebackground= "black")
+moteur_2_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_2 , activebackground= "black")
 moteur_2_lh.grid(row=1, column=0, sticky=N+S+E+W, padx=(10, 10))
-moteur_3_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_3, activebackground= "black")
+moteur_3_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_3, activebackground= "black")
 moteur_3_lh.grid(row=2, column=0, sticky=N+S+E+W, padx=(10, 10))
-moteur_4_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_4, activebackground= "black")
+moteur_4_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_4, activebackground= "black")
 moteur_4_lh.grid(row=3, column=0, sticky=N+S+E+W, padx=(10, 10))
-moteur_5_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_5, activebackground= "black")
+moteur_5_lh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_left_5, activebackground= "black")
 moteur_5_lh.grid(row=4, column=0, sticky=N+S+E+W, padx=(10, 10))
     #Right hand
-moteur_1_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_1, activebackground= "black")
+moteur_1_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Pouce : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_1, activebackground= "black")
 moteur_1_rh.grid(row=0, column=1, sticky=N+S+E+W, padx=(10,10))
-moteur_2_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_2 , activebackground= "black")
+moteur_2_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Index : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_2 , activebackground= "black")
 moteur_2_rh.grid(row=1, column=1, sticky=N+S+E+W, padx=(10,10))
-moteur_3_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_3, activebackground= "black")
+moteur_3_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Majeur : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_3, activebackground= "black")
 moteur_3_rh.grid(row=2, column=1, sticky=N+S+E+W, padx=(10,10))
-moteur_4_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_4, activebackground= "black")
+moteur_4_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Annulaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_4, activebackground= "black")
 moteur_4_rh.grid(row=3, column=1, sticky=N+S+E+W, padx=(10,10))
-moteur_5_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_5, activebackground= "black")
+moteur_5_rh = Scale(hand_2, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Auriculaire : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_hand_right_5, activebackground= "black")
 moteur_5_rh.grid(row=4, column=1, sticky=N+S+E+W, padx=(10,10))
 #afficher
 hand.pack(fill=X)
@@ -235,13 +235,13 @@ hand_2.pack(fill=X)
 speak = Frame(screen[6], bg=str(cfg["page"]["background"]))
 speak_full = Frame(screen[6], bg=str(cfg["page"]["background"]))
 #ajouter du texte
-bienvenue_speak = Label(speak, text="Bienvenue sur l'interface de controle de la parole :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue_speak = Label(speak, text="Bienvenue sur l'interface de contrôle de la parole :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
 bienvenue_speak.grid(row=0,column=1, sticky=W)
 #info robot
 entrer_text = Entry(speak_full)
 entrer_text.pack(fill=X)
 #ajouter un bouton
-btn_send = Button(speak_full, text="lancer parole", bg="black", fg="white", command=fonction_speak)
+btn_send = Button(speak_full, text="Lancer parole", bg="black", fg="white", command=fonction_speak)
 btn_send.pack(pady = 25, fill=X)
 #moteur bouche
 moteur_speak = Scale(speak_full, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Mouvement bouche : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moteur_head_3_speak, activebackground= "black")

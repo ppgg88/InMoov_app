@@ -3,6 +3,9 @@
 #pour utilisation de la librairie arduino comme expliquer dans 'Readme.md'
 from arduino import * 
 
+#pour utiliser les mouvements du robot
+from body import *
+
 etat_1 = False
 
 def fonction_test_1() :
@@ -16,9 +19,17 @@ def fonction_test_2() :
     valeur_pin_A0 = arduino2.analogRead(14)
     tkinter.messagebox.showerror('fonction 2',('pin A0 : ' + str(valeur_pin_A0)))
 
+def bouche_100():
+    moove.head.mouth(100)
+
+def bouche_0():
+    moove.head.mouth(0)
+
 #ajouter dans cette liste vos fontion pour les retrouver dans le menu de l'aplication
 fonction_liste = [
         #["nom de la fonction pour le menu", nom_de_la_fonction_dans_python]
-        ["switch arduino n°1 pin 13", fonction_test_1], 
-        ["lecture analogique A0 de ardunio n°2", fonction_test_2]
+        ["Switch arduino n°1 pin 13", fonction_test_1], 
+        ["Lecture analogique A0 de ardunio n°2", fonction_test_2],
+        ["Bouche à 100%", bouche_100], 
+        ["Bouche à 0%", bouche_0]
     ]
