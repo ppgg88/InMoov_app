@@ -36,6 +36,7 @@ corps_menu.add_command(label="Mains", command=hand_page)
 
 fonction_menu = Menu(menu_root, tearoff = 0)
 fonction_menu.add_command(label="Parole", command=speak_page)
+fonction_menu.add_command(label="Vocal", command=voice_page)
 
 menu_root.add_cascade(label="Accueil", command=show_accueil)
 menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
@@ -255,6 +256,27 @@ canvas.grid(row=0, column=0, sticky=W)
 #afficher
 speak.pack(fill = X)
 speak_full.pack(fill = X)
+
+
+###### VOCAL #######
+vocal = Frame(screen[7], bg=str(cfg["page"]["background"]))
+vocal_full = Frame(screen[7], bg=str(cfg["page"]["background"]))
+#ajouter du texte
+bienvenue_vocal = Label(vocal, text="Bienvenue sur l'interface de reconaissance vocal :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue_vocal.grid(row=0,column=1, sticky=W)
+#ajouter un bouton
+vocal_etat = IntVar()
+activ_voc = Checkbutton(vocal_full, text='Ecoute',variable=vocal_etat, onvalue=1, offvalue=0, command=vocal_start_stop_thread)
+activ_voc.pack(pady = 25, fill=X)
+#ajouter une image
+width, height = 300, 150
+image_vocal = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
+canvas = Canvas(vocal, width=width, height=height, bg = cfg["page"]["background"], bd=0, highlightthickness=0)
+canvas.create_image(width/2,height/2,image=image_vocal)
+canvas.grid(row=0, column=0, sticky=W)
+#afficher
+vocal.pack(fill = X)
+vocal_full.pack(fill = X)
 
 ### ecoute des touches du clavier ###
 root.bind("<KeyPress-a>", moteur_1_clavier)

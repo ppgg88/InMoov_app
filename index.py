@@ -1,5 +1,6 @@
 from script_personelle import *
 from main import *
+from speechrecognition_ import *
 
 ### AJOUT DES FONCTIONS PERSSONEL AU MENU ###
 fonction_perso_menu = Menu(menu_root, tearoff = 0)
@@ -14,5 +15,6 @@ conect_2()
 
 ### AFFICHAGE DU PROGRAME ###
 screen[0].pack(fill=X)
-say("Bonjour, je suis" + cfg["robot"]["robot_name"])
+#say("Bonjour, je suis" + cfg["robot"]["robot_name"])
+
 root.mainloop()

@@ -1,9 +1,12 @@
 from tkinter import *
 from arduino import *
+from speechrecognition_ import *
 from body import *
 import configparser
 import os
 import tkinter.messagebox
+import threading
+import time
 
 cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
@@ -66,6 +69,14 @@ def speak_page():
     main.screen[index].pack_forget()
     index = 6
     print("page de gestion des paroles")
+    main.screen[index].pack(fill = X)
+
+def voice_page():
+    import main
+    global index
+    main.screen[index].pack_forget()
+    index = 7
+    print("page de reconaissance vocal")
     main.screen[index].pack(fill = X)
 
 # touche a
@@ -189,3 +200,20 @@ def say(text):
     main.moteur_speak.set(0)
     main.moteur_3_h.set(0)
     connection_robot()
+
+i = 99
+
+def vocal_start_stop_thread():
+    import main
+    global i 
+    i = main.vocal_etat.get()
+    print("vocal start")
+    print(i)
+    t = threading.Thread(target=vocal_start_stop)
+    t.start()
+    #t.join()
+
+def vocal_start_stop():
+    global i
+    while i == 1 :
+        speak_recognition()
