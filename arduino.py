@@ -3,6 +3,7 @@ import serial
 import io
 import serial.tools.list_ports
 import configparser
+import tkinter.messagebox
 from time import *
 
 cfg = configparser.ConfigParser()
@@ -11,6 +12,10 @@ cfg.read('config/info.ini')
 conexion = False
 conexion_2 = False
 
+init_arduino_1 = False
+init_arduino_2 = False
+
+### CONNEXION ARDUNO 1 & 2 ###
 def connection_robot_1():
     global conexion, arduino_1, sio
     port_available = serial.tools.list_ports.comports(include_links=False)
@@ -33,7 +38,6 @@ def connection_robot_1():
         print("conection arduino n°1 echouer")
         conexion = False
         return(conexion)
-
 
 def connection_robot_2():
     global conexion_2, arduino_2, sio_2
@@ -58,7 +62,64 @@ def connection_robot_2():
         conexion_2 = False
         return(conexion_2)
 
+def conect_1():
+    import main
+    global init_arduino_1
+    if connection_robot_1() :
+        main.btn.config(bg = "green", command = NONE, text = "Arduino n°1 : CONNECTER")
+        main.btn.update()
+    else :
+        main.btn.config(bg = "black")
+        main.btn.update()
+        if init_arduino_1 :
+            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°1 Impossible')
+    init_arduino_1 = True
 
+def conect_2():
+    import main
+    global init_arduino_2
+    if connection_robot_2() :
+        main.btn2.config(bg = "green", command = NONE, text = "Arduino n°2 : CONNECTER")
+        main.btn2.update()
+    else :
+        main.btn2.config(bg = "black")
+        main.btn2.update()
+        if init_arduino_2 :
+            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°2 Impossible')
+    init_arduino_2 = True
+
+def connection_robot():
+    connection_robot_1()
+    connection_robot_2()
+
+### DECONNEXION ARDUINO 1 & 2 ###
+def deconnection_robot_1():
+    arduino_1.close()
+    print("arduino n°1 : deconecter")
+
+def deconnection_robot_2():
+    arduino_2.close()
+    print("arduino n°2 : deconecter")
+
+def deconnection_robot():
+    global conexion_2, arduino_2, conexion, arduino_1
+    if conexion :
+        deconnection_robot_1()
+    if conexion_2 :
+        deconnection_robot_2()
+
+### COMUNICATION AVEC LES CARTE ARDUINO 1 ET 2 ###
+def send_arduino_1(data):
+    arduino_1.write(str(data).encode("ascii"))
+    print("arduino n°1 <-- " + str(data))
+    sleep(0.01)
+
+def send_arduino_2(data):
+    arduino_2.write(str(data).encode("ascii"))
+    print("arduino n°2 <-- " + str(data))
+    sleep(0.01)
+
+### controle des moteurs arduno 1 & 2 ###
 def controle_moteur_1(pin, valeur):
     """prend en entrer le pin du moteur à controler et le positionement en angle de ce moteurs"""
     """la trame de controle du moteur en hexadecimal sera : 22 pin angle"""
@@ -86,25 +147,7 @@ def controle_moteur_2(pin, valeur):
         print(str(v))
         sleep(0.01)
 
-def deconnection_robot_1():
-    arduino_1.close()
-    print("arduino n°1 : deconecter")
-
-def deconnection_robot_2():
-    arduino_2.close()
-    print("arduino n°2 : deconecter")
-
-def deconnection_robot():
-    global conexion_2, arduino_2, conexion, arduino_1
-    if conexion :
-        deconnection_robot_1()
-    if conexion_2 :
-        deconnection_robot_2()
-
-def connection_robot():
-    connection_robot_1()
-    connection_robot_2()
-
+### FONCTION DE BASE DES CARTE ARDUINO ###
 def digitalWrite_arduino_1(pin, etat):
     """digitalWrite executer sur la carte ardunio 1"""
     global conexion, arduino_1, sio
@@ -160,11 +203,6 @@ def pinMode_arduino_1(pin, etat):
     if conexion == True :
         v = (130000 + (pin*100) + etat)
         send_arduino_1(v)
-
-def send_arduino_1(data):
-    arduino_1.write(str(data).encode("ascii"))
-    print("arduino n°1 <-- " + str(data))
-    sleep(0.01)
 
 def digitalWrite_arduino_2(pin, etat):
     """digitalWrite executer sur la carte ardunio 2"""
@@ -222,11 +260,8 @@ def pinMode_arduino_2(pin, etat):
         v = (130000 + (pin*100) + etat)
         send_arduino_2(v)
 
-def send_arduino_2(data):
-    arduino_2.write(str(data).encode("ascii"))
-    print("arduino n°2 <-- " + str(data))
-    sleep(0.01)
 
+### CLASS POUR UTILISATION PLUS SIMPLE ###
 class arduino1 :
     def pinMode(pin, etat):
         """etat == 0 : INPUT // etat==1 : OUTPUT"""

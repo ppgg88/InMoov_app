@@ -4,7 +4,6 @@ from body import *
 from fonction_main import *
 import configparser
 import os
-import tkinter.messagebox
 
 cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
@@ -24,6 +23,8 @@ root.config(background = str(cfg["page"]["background"]))
 #creation des diferents ecrans
 screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,8)]
 
+
+### MENU ###
 menu_root = Menu(root)
 
 corps_menu = Menu(menu_root, tearoff = 0)
@@ -255,6 +256,7 @@ canvas.grid(row=0, column=0, sticky=W)
 speak.pack(fill = X)
 speak_full.pack(fill = X)
 
+### ecoute des touches du clavier ###
 root.bind("<KeyPress-a>", moteur_1_clavier)
 root.bind("<KeyPress-z>", moteur_2_clavier)
 root.bind("<KeyPress-e>", moteur_3_clavier)
@@ -268,6 +270,3 @@ root.bind("<KeyPress-T>", moteur_5_clavier)
 root.bind("<Left>", soustraction_clavier)
 root.bind("<Right>", adition_clavier)
 root.bind('<Return>', entrer_clavier)
-
-conect_1()
-conect_2()

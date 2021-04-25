@@ -1,7 +1,7 @@
 #entrer ici vos script perssonel
-from main import *
-from arduino import *
-#/!\ ne pas suprimer les imports
+
+#pour utilisation de la librairie arduino comme expliquer dans 'Readme.md'
+from arduino import * 
 
 etat_1 = False
 

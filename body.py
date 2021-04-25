@@ -6,7 +6,7 @@ cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
 
 
-#controle des moteurs
+### TETE ###
 def moteur_head_1(position):
     #rotation tete
     angle = int(cfg["moteurs"]["rotation_tete_max"])-int(cfg["moteurs"]["rotation_tete_min"])
@@ -26,6 +26,24 @@ def moteur_head_2(position):
         controle_moteur_1(int(cfg["moteurs"]["elevation_tete_pin"]), int(angle))
     else :
         controle_moteur_2(int(cfg["moteurs"]["elevation_tete_pin"]), int(angle))
+
+def moteur_head_3(position):
+    import main
+    global moteur_speak
+    main.moteur_speak.set(position)
+    #mouvement bouche
+    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
+    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
+    print("head 3 : " + str(int(angle)))
+    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
+        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+    else :
+        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
+
+def moteur_head_3_speak(position):
+    import main
+    global moteur_3_h
+    main.moteur_3_h.set(position)
 
 def moteur_head_4(position):
     #mouvement yeux X
@@ -47,6 +65,7 @@ def moteur_head_5(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["yeux_y_tete_pin"]), int(angle))
 
+### LEFT ARM ###
 def moteur_left_arm_1(position):
     #mouvement epaule gauche x
     angle = int(cfg["moteurs"]["epaule_x_left_max"])-int(cfg["moteurs"]["epaule_x_left_min"])
@@ -87,6 +106,7 @@ def moteur_left_arm_4(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["coude_left_pin"]), int(angle))
 
+### RIGHT ARM ###
 def moteur_right_arm_1(position):
     #mouvement epaule droite x
     angle = int(cfg["moteurs"]["epaule_x_right_max"])-int(cfg["moteurs"]["epaule_x_right_min"])
@@ -127,6 +147,7 @@ def moteur_right_arm_4(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["coude_right_pin"]), int(angle))
 
+### BASSIN ###
 def moteur_bassin_1(position):
     #rotation tete
     angle = int(cfg["moteurs"]["bascule_bassin_max"])-int(cfg["moteurs"]["bascule_bassin_min"])
@@ -147,7 +168,7 @@ def moteur_bassin_2(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["rotation_tete_pin"]), int(angle))
     
-
+### LEFT HAND ###
 def moteur_hand_left_1(position):
     angle = int(cfg["moteurs"]["pouce_left_max"])-int(cfg["moteurs"]["pouce_left_min"])
     angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["pouce_left_min"])
@@ -193,6 +214,15 @@ def moteur_hand_left_5(position):
     else :
         controle_moteur_2(int(cfg["moteurs"]["auriculaire_left_pin"]), int(angle))
 
+def moteur_hand_left(position):
+    import main
+    main.moteur_1_lh.set(position)
+    main.moteur_2_lh.set(position)
+    main.moteur_3_lh.set(position)
+    main.moteur_4_lh.set(position)
+    main.moteur_5_lh.set(position)
+
+### RIGHT HAND ###
 def moteur_hand_right_1(position):
     angle = int(cfg["moteurs"]["pouce_right_max"])-int(cfg["moteurs"]["pouce_right_min"])
     angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["pouce_right_min"])
@@ -245,11 +275,3 @@ def moteur_hand_right(position):
     main.moteur_3_rh.set(position)
     main.moteur_4_rh.set(position)
     main.moteur_5_rh.set(position)
-
-def moteur_hand_left(position):
-    import main
-    main.moteur_1_lh.set(position)
-    main.moteur_2_lh.set(position)
-    main.moteur_3_lh.set(position)
-    main.moteur_4_lh.set(position)
-    main.moteur_5_lh.set(position)

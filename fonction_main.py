@@ -9,38 +9,9 @@ cfg = configparser.ConfigParser()
 cfg.read('config/info.ini')
 
 scal = -1
-
-inti_arduino_1 = False
-inti_arduino_2 = False
-
 index = 0
 
-def moteur_head_3(position):
-    import main
-    global moteur_speak
-    main.moteur_speak.set(position)
-    #mouvement bouche
-    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
-    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
-    print("head 3 : " + str(int(angle)))
-    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
-        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-    else :
-        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-
-def moteur_head_3_speak(position):
-    import main
-    global moteur_3_h
-    main.moteur_3_h.set(position)
-    #mouvement bouche
-    angle = int(cfg["moteurs"]["bouche_tete_max"])-int(cfg["moteurs"]["bouche_tete_min"])
-    angle = ((float(position)/100) * angle) + float(cfg["moteurs"]["bouche_tete_min"])
-    print("head 3 : " + str(int(angle)))
-    if int(cfg["moteurs"]["bouche_tete_arduino"]) == 1 :
-        controle_moteur_1(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-    else :
-        controle_moteur_2(int(cfg["moteurs"]["bouche_tete_pin"]), int(angle))
-
+#changement de page du menu
 def show_accueil():
     import main
     global index
@@ -89,7 +60,6 @@ def stomach_page():
     print("page de gestion du bassin")
     main.screen[index].pack(fill = X)
 
-
 def speak_page():
     import main
     global index
@@ -97,32 +67,6 @@ def speak_page():
     index = 6
     print("page de gestion des paroles")
     main.screen[index].pack(fill = X)
-
-def conect_1():
-    import main
-    global inti_arduino_1
-    if connection_robot_1() :
-        main.btn.config(bg = "green", command = NONE, text = "Arduino n°1 : CONNECTER")
-        main.btn.update()
-    else :
-        main.btn.config(bg = "black")
-        main.btn.update()
-        if inti_arduino_1 :
-            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°1 Impossible')
-    inti_arduino_1 = True
-
-def conect_2():
-    import main
-    global inti_arduino_2
-    if connection_robot_2() :
-        main.btn2.config(bg = "green", command = NONE, text = "Arduino n°2 : CONNECTER")
-        main.btn2.update()
-    else :
-        main.btn2.config(bg = "black")
-        main.btn2.update()
-        if inti_arduino_2 :
-            tkinter.messagebox.showerror('erreur','conexion à l\'arduino n°2 Impossible')
-    inti_arduino_2 = True
 
 # touche a
 def moteur_1_clavier(k):
@@ -140,7 +84,10 @@ def moteur_1_clavier(k):
         def moteur_selectioner(x):
             moteur_right_arm_1(x)
         scal = main.moteur_1_ra
-
+    if index == 4 :
+        def moteur_selectioner(x):
+            moteur_bassin_1(x)
+        scal = main.moteur_1_b
 #touche z
 def moteur_2_clavier(k):
     import main
@@ -158,7 +105,10 @@ def moteur_2_clavier(k):
             moteur_right_arm_2(x)
         scal = main.moteur_2_ra
     print("moteur 2 selectioner")
-
+    if index == 4 :
+        def moteur_selectioner(x):
+            moteur_bassin_2(x)
+        scal = main.moteur_2_b
 #touche e
 def moteur_3_clavier(k):
     import main
@@ -175,7 +125,6 @@ def moteur_3_clavier(k):
         def moteur_selectioner(x):
             moteur_right_arm_3(x)
         scal = main.moteur_3_ra
-
 #touche r
 def moteur_4_clavier(k):
     import main
@@ -192,15 +141,14 @@ def moteur_4_clavier(k):
         def moteur_selectioner(x):
             moteur_right_arm_4(x)
         scal = main.moteur_4_ra
-
 #touche t
 def moteur_5_clavier(k):
+    import main
     global moteur_selectioner, index, scal
     if index == 1 :
         def moteur_selectioner(x):
             moteur_head_5(x)
         scal = main.moteur_5_h
-
 #touche <
 def soustraction_clavier(k):
     global moteur_selectioner, scal
@@ -209,7 +157,6 @@ def soustraction_clavier(k):
         val += -2
         scal.set(val)
         print(val)
-
 #touche >
 def adition_clavier(k):
     global moteur_selectioner, scal
@@ -218,18 +165,20 @@ def adition_clavier(k):
         val += 2
         scal.set(val)
         print(val)
-
-def fonction_speak():
-    global entrer_text
-    say(entrer_text.get())
-
 #touche entrer
 def entrer_clavier(k):
+    import main
     print("entrer")
-    global entrer_text, index
+    global index
     if index == 6 :
-        say(entrer_text.get())
-        
+        say(main.entrer_text.get())
+
+
+#fonction pour la parole
+def fonction_speak():
+    import main
+    say(main.entrer_text.get())
+
 def say(text):
     import main
     fichier = open("temp_lecture", "w")
