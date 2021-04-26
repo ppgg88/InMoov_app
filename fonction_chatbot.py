@@ -13,12 +13,15 @@ def close_mouth():
 
 def see_left():
     import main
+    moove.head.rotation(0)
     main.moteur_1_h.set(0)
 
 def see_right():
     import main
-    main.moteur_1_h.set(180)
+    moove.head.rotation(100)
+    main.moteur_1_h.set(100)
 
 def see_front():
     import main
-    main.moteur_1_h.set(90)
+    moove.head.rotation(50)
+    main.moteur_1_h.set(50)
