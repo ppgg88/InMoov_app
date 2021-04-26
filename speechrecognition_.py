@@ -1,5 +1,6 @@
 import speech_recognition as sr
 from data_chatbot import *
+from fonction_chatbot import *
 from random import randint
 import os
 from arduino import *
@@ -21,6 +22,10 @@ def phrase_recognition(phrase):
                 print("say -> " + text)
                 say(text)
                 reponse = False
+                try :
+                    i[2][0]()
+                except:
+                    print("pass")
             else :
                 for j in data_mots_suplementaire:
                     if phrase == (k + " " + j):
@@ -28,6 +33,10 @@ def phrase_recognition(phrase):
                         print("say -> " + text)
                         say(text)
                         reponse = False
+                        try :
+                            i[2][0]()
+                        except:
+                            print("pass")
     if reponse :
         say("je ne vous ai pas compris, il me reste encore beaucoup de chose à apprendre")
 

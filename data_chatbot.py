@@ -1,5 +1,6 @@
 import configparser
 import csv
+from fonction_chatbot import *
 
 cfg = configparser.ConfigParser()
 cfg.read('./config/info.ini')
@@ -38,7 +39,7 @@ data = [
         ["c'est Paris", "la capitale de la france est paris", "paris est la capitale de la france"]
     ],
     [
-        ["Bonjour", ("Bonjour " + cfg["robot"]["robot_name"]), "Salut", ("Salut " + cfg["robot"]["robot_name"])],
+        ["Bonjour", "Salut"],
         ["Bonjour, que puit-je faire pour vous ?", "Bonjour, je peut vous aider ?", "Bonjour, je suis comptemps de vous voir"]
     ],
     [
@@ -61,7 +62,30 @@ data = [
         [cfg["robot"]["robot_name"]],
         ["oui ? je peut faire quelque chose ?", "je suis là !", "c'est mon nom !", "c'est comme ça que les gents m'apelle"]
     ],
-
+    [
+        ["ouvre la bouche", "ouvre ta bouche"],
+        ["j'ouvre ma bouche"],
+        [open_mouth]
+    ],
+    [
+        ["ferme la bouche", "ferme ta bouche"],
+        ["je ferme ma bouche"],
+        [close_mouth]
+    ],
+    [
+        ["regarde à droite", "regarde à ta droite"],
+        ["je regarde à droite", "je regarde sur la droite"],
+        [see_left]
+    ],
+    [
+        ["regarde à gauche", "regarde à ta gauche"],
+        ["je regarde à gauche", "je regarde sur la gauche"],
+        [see_right]
+    ],
+    [
+        ["es-tu un terminator"],
+        ["non mais mefie toi je pourais le devenir", "non et toi est tu saraconorre"]
+    ],
 ]
 
 data_mots_suplementaire = [
