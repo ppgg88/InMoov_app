@@ -96,7 +96,7 @@ la comande est la suivante :
 * ```auriculaire(valeur)``` : pour le mouvement des yeux en y
 * ```all(valeur)``` : pour le mouvement des yeux en y
 
-### Exemple : faire ouvrir et fermer la bouche 5 fois au maximum
+### Exemple : faire ouvrir et fermer la bouche 5 fois
 ```python
 from body import *
 from time import sleep
