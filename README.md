@@ -5,16 +5,23 @@
 
  ***/!\ le fonctionement n'est garantie que sous Windows***
  
+ installer python 3.9 sur la machine et assurez vous que pip est bien ajouter au PATH
+ 
 Toute les configurations se trouves dans le fichier ".\config\info.ini"
 pour l'instalation d'une voix masculine un tuto est à réaliser
 
-s'assurer que les librairie _tkinter, configparser, pyttsx3, random, multiprocessing et time_ sont corectements instaler sur la machine : 
+s'assurer que les librairie *tkinter, configparser, pyttsx3, random, multiprocessing, pafy, python-vlc, speech_recognition, PyAudio et youtube_dl* sont corectements instaler sur la machine : 
 
  Avec pip :
 ```python
 pip install nom_librairie
 ```
+en cas de probleme avec l'instalation de PyAudio c'est ici : https://www.journaldunet.fr/web-tech/developpement/1498829-comment-installer-pyaudio-sur-windows-et-eviter-l-erreur-error-microsoft-visual-c-14-0-is-required/
 
+Assurez-vous que VLC est instaler sur la machine, si non : https://www.videolan.org/vlc/index.fr.html
+
+## Utilisation de scripte perssonel:
+le fichier ```script_personelle.py``` est à votre disposition pour ajouter vos propre script, n'oubliez pas d'ajouter vos fonction dans ```fonction_liste``` affin qu'elle puisse etre apeler depuis le menu de l'aplication 
 
 ## Utilisation des fonctions arduino :
 
@@ -110,4 +117,13 @@ for i in range(0,5):
   moove.head.mouth(0) ### on ferme la bouche à 0% (à la valeur min indiquer dans config/info.ini)
   sleep(1)
 ```
+## discutions :
+l'enssemble des parole reconue par le robot se trouve dans data_chatbot.py
 
+En plus de celas, le robot est capable de vous donner le nom des capitals du monde et de mettre de la musique avec les comandes vocal :
+
+
+```
+lance la musique (nom de la music)
+quelle est la capital du (nom du pays)
+```
