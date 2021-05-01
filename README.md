@@ -2,8 +2,12 @@
  
  **déveloper en Francais par Paul Giroux : paul.giroux87@gmail.com
  Pour le projet InMoov -> https://inmoov.fr/**
+ 
+ **n'hèsitez pas à me contacter si vous rencontrer la moindre dificulté lors de l'instalation et/ou l'utilisation**
 
  ***/!\ le fonctionement n'est garantie que sous Windows***
+ 
+ ## INSTALATION :
  
  installer python 3.9 sur la machine et assurez vous que pip est bien ajouter au PATH
  
@@ -48,8 +52,8 @@ pour plus d'information sur l'utilisation de ces fonctions vous pouvez vous refe
 from arduino import *
 from time import sleep
 
-arduino1.connection()
-ardunio1.pinMode(13, 1)
+arduino1.connection() #on conecte la carte arduino n°1
+ardunio1.pinMode(13, 1) #on passe le pin 13 en mode OUTPUT
 
 for i in range(0,10):
   arduino1.digitalWrite(13, 1) #on allume la led 13
@@ -118,7 +122,7 @@ for i in range(0,5):
   sleep(1)
 ```
 ## discutions :
-l'enssemble des parole reconue par le robot se trouve dans data_chatbot.py
+l'enssemble des parole reconue par le robot se trouve dans ```data_chatbot.py```
 
 En plus de celas, le robot est capable de vous donner le nom des capitals du monde et de mettre de la musique avec les comandes vocal :
 
