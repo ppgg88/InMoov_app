@@ -1,4 +1,4 @@
-# InMoov_app
+# InMoov App
  
  **déveloper en Francais par Paul Giroux : paul.giroux87@gmail.com
  Pour le projet InMoov -> https://inmoov.fr/**
