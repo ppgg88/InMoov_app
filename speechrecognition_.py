@@ -1,10 +1,12 @@
 import speech_recognition as sr
 from data_chatbot import *
 from fonction_chatbot import *
+from fonction_main import *
 from random import randint
 import os
 from arduino import *
 import configparser
+from time import *
 
 cfg = configparser.ConfigParser()
 cfg.read('./config/info.ini')
@@ -44,7 +46,22 @@ def phrase_recognition(phrase):
                             except:
                                 pass
     if reponse and capital(phrase)==False:
-        say("je ne vous ai pas compris, il me reste encore beaucoup de chose à apprendre")
+        if song(phrase) == False :
+            say("je ne vous ai pas compris, il me reste encore beaucoup de chose à apprendre")
+
+
+def song(phrase):
+    x=""
+    for i in range(0, 16):
+        x = x + phrase[i] 
+    if x == "lance la musique" :
+        nom_musique = ""
+        for j in range(17, len(phrase)):
+            nom_musique = nom_musique + phrase[j]
+        print(nom_musique)
+        music_ytb(nom_musique)
+        return(True)
+    return(False)
 
 def capital(text):
     import csv;
@@ -67,6 +84,7 @@ def capital(text):
                     print(liste[1])
                     say("la capitale de " + pays + " est " + liste[1])
                     pays_trouver = True
+    return(pays_trouver)
 
 def speak_recognition():
     rec_vocal = sr.Recognizer()

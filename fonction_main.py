@@ -211,7 +211,6 @@ def vocal_start_stop_thread():
     print(i)
     t = threading.Thread(target=vocal_start_stop)
     t.start()
-    #t.join()
 
 def vocal_start_stop():
     global i

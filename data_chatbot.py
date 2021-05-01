@@ -1,6 +1,7 @@
 import configparser
 import csv
 from fonction_chatbot import *
+from fonction_main import *
 
 cfg = configparser.ConfigParser()
 cfg.read('./config/info.ini')
@@ -100,47 +101,44 @@ data = [
         ["un humain mais je ne peut pas en etre sur", "un humain mais je ne suis pas certain"]
     ],
     [
+        ["où habites-tu", "où vis-tu", "c'est quoi ton adresse", "quelle est ton adresse"],
+        [("actuelement je vie à " + cfg["robot"]["robot_locacation"]), ("j'habite à " + cfg["robot"]["robot_locacation"])]
+    ],
+    [
         ["as-tu un site internet", "peut-on te trouver sur internet"],
         ["tu peut retrouver la page du projet InMouv à l'adresse internet suivante : trois W point InMouv point F R"]
     ],
-    ### CAPITAL DU MONDE ###
-    '''[
-        ["quelle est la capitale de l'Allemagne", "de quel pays Berlin est la capitale"],
-        ["Berlin est la capitale de l'Allemagne", "la capitale de l'Allemagne est berlin"]
+    [
+        ["regarde en haut", "regarde plus haut", "regarde le ciel"],
+        ["je regarde en haut", "je regarde vers le haut"],
+        [see_up]
     ],
     [
-        ["quelle est la capitale des Emirats arabes unis", "de quel pays Abou Dabi est la capitale"],
-        ["Abou Dabi est la capitale des Emirats arabe unis", "la capitale des Emirats arabe unis est Abou Dabi"]
+        ["regarde en bas", "regarde plus bas", "regarde le sol"],
+        ["je regarde en bas", "je regarde vers le bas", "je regarde le sol"],
+        [see_down]
     ],
     [
-        ["quelle est la capitale du Nigeria", "de quel pays Abuja est la capitale"],
-        ["Abuja est la capitale du Nigeria", "la capitale du Nigeria est Abuja"]
+        ["tête en mode aléatoire"],
+        ["je fais des mouvement aleatoire"],
+        [mouvement_aleatoire]
     ],
     [
-        ["quelle est la capitale du Ghana", "de quel pays Accra est la capitale"],
-        ["Accra est la capitale du Ghana", "la capitale du Gahna est accra"]
+        ["arrête la musique"],
+        ["je coupe la musique"],
+        [stop_music]
     ],
     [
-        ["quelle est la capitale du Turkménistan", "de quel pays Avhgabat est la capitale"],
-        ["Avhgabatest la capitale du Turkménistan", "la capitale du Turkménistan est Avhgabat"]
+        ["lance les actus du jour","lance les actus du jour d'Hugo décrypte", "mets les actus du jour", "ouvre l'actualité du jour", "mets les actus du jour d'Hugo décrypte", "lance la vidéo des actus du jour", "lance la vidéo des actus du jour d'Hugo décrypte", "lance la vidéo des actus du jour d'Hugo des crêpes"],
+        ["je lance les actu du jour d'hugo décripte"],
+        [actu_du_jour]
     ],
     [
-        ["quelle est la capitale de l'Éthiopie", "de quel pays Addis-Abeba est la capitale"],
-        ["Addis-Abeba est la capitale de l'Éthiopie", "la capitale de l'Éthiopie est Addis-Abeba"]
+        ["coupe la vidéo", "arrête la vidéo"],
+        ["je coupe la vidéo"],
+        [stop_music]
     ],
-    [
-        ["quelle est la capitale de l'Algérie", "de quel pays Alger est la capitale"],
-        ["Alger est la capitale de l'Algérie", "la capitale de l'Algérie est Alger"]
-    ],
-    [
-        ["quelle est la capitale de la Jordanie", "de quel pays Amman est la capitale"],
-        ["Amman est la capitale de la Jordanie", "la capitale de la Jordanie est Amman"]
-    ],
-    [
-        ["quelle est la capitale des Pays-Bas", "de quel pays Amsterdam est la capitale"],
-        ["Amsterdam est la capitale des Pays-Bas", "la capitale des Pays-Bas est Amsterdam"]
-    ],'''
-] 
+]
 
 data_mots_suplementaire_end = [
     "merci",

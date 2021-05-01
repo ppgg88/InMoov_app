@@ -2,6 +2,7 @@ from tkinter import *
 from arduino import *
 from body import *
 from fonction_main import *
+from fonction_chatbot import *
 import configparser
 import os
 
@@ -37,6 +38,7 @@ corps_menu.add_command(label="Mains", command=hand_page)
 fonction_menu = Menu(menu_root, tearoff = 0)
 fonction_menu.add_command(label="Parole", command=speak_page)
 fonction_menu.add_command(label="Vocal", command=voice_page)
+fonction_menu.add_command(label="Mouvement aléatoire Tête", command=mouvement_aleatoire)
 
 menu_root.add_cascade(label="Accueil", command=show_accueil)
 menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)
