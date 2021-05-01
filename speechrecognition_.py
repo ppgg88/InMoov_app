@@ -2,6 +2,7 @@ import speech_recognition as sr
 from data_chatbot import *
 from fonction_chatbot import *
 from fonction_main import *
+from script_personelle import *
 from random import randint
 import os
 from arduino import *

@@ -2,6 +2,7 @@ import configparser
 import csv
 from fonction_chatbot import *
 from fonction_main import *
+from script_personelle import *
 
 cfg = configparser.ConfigParser()
 cfg.read('./config/info.ini')
