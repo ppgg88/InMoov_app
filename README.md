@@ -24,6 +24,8 @@ en cas de probleme avec l'instalation de PyAudio c'est ici : https://www.journal
 
 Assurez-vous que VLC est instaler sur la machine, si non : https://www.videolan.org/vlc/index.fr.html
 
+Uploader le programe arduino comptenue dans le dossier prog_arduino sur la/les cartes de controles de votre robot (maximum 2 cartes)
+
 ## Utilisation de scripte perssonel:
 le fichier ```script_personelle.py``` est à votre disposition pour ajouter vos propre script, n'oubliez pas d'ajouter vos fonction dans ```fonction_liste``` affin qu'elle puisse etre apeler depuis le menu de l'aplication 
 
