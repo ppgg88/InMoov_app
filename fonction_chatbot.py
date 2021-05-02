@@ -119,3 +119,6 @@ def stop_music():
 
 def actu_du_jour():
     music_ytb("les actus du jour hugo decripte")
+
+def position_base():
+    position_init()

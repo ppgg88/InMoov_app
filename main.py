@@ -40,6 +40,7 @@ fonction_menu = Menu(menu_root, tearoff = 0)
 fonction_menu.add_command(label="Parole", command=speak_page)
 fonction_menu.add_command(label="Vocal", command=voice_page)
 fonction_menu.add_command(label="Mouvement aléatoire Tête", command=mouvement_aleatoire)
+fonction_menu.add_command(label="Position de repos", command=position_init)
 
 menu_root.add_cascade(label="Accueil", command=show_accueil)
 menu_root.add_cascade(label="Gestion du Corps", menu=corps_menu)

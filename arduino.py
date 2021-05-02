@@ -140,6 +140,7 @@ def controle_moteur_2(pin, valeur):
     global conexion_2, arduino_2, sio_2
     if conexion_2 == False :
         print("l'arduino n°2 n'est pas conecter")
+        connection_robot_2()
     else :
         v = (pin * 1000)
         v += valeur

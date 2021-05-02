@@ -139,6 +139,11 @@ data = [
         ["je coupe la vidéo"],
         [stop_music]
     ],
+    [
+        ["repos", "met toi au repos", "au repos"],
+        ["je me met au repos", "je me repose", "je revien dans ma position de repos"],
+        [position_base]
+    ],
 ]
 
 data_mots_suplementaire_end = [
