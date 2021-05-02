@@ -79,7 +79,7 @@ for i in fonction_liste :
     fonction_perso_menu.add_command(label=(i[0]), command=i[1])
 menu_root.add_cascade(label="Fonctions Personalisées", menu=fonction_perso_menu)
 
-### TEST DE CONEXION PAR DEFAUT AU CARTE ARDUINO ###
+### TEST DE CONEXION PAR DEFAUT AUX CARTES ARDUINO ###
 conect_1()
 conect_2()
 
