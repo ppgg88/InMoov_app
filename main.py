@@ -22,7 +22,7 @@ root.iconbitmap("images/logo-inmoov.ico")
 root.config(background = str(cfg["page"]["background"]))
 
 #creation des diferents ecrans
-screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,8)]
+screen = [Frame(root, bg=str(cfg["page"]["background"])) for i in range(0,9)]
 
 
 ### MENU ###
@@ -34,6 +34,7 @@ corps_menu.add_command(label="Bras droit", command=right_arm_page)
 corps_menu.add_command(label="Bras gauche", command=left_arm_page)
 corps_menu.add_command(label="Ventre", command=stomach_page)
 corps_menu.add_command(label="Mains", command=hand_page)
+corps_menu.add_command(label="Controleur General", command=full_controle_page)
 
 fonction_menu = Menu(menu_root, tearoff = 0)
 fonction_menu.add_command(label="Parole", command=speak_page)
@@ -203,6 +204,7 @@ moteur_lh = Scale(hand_1, orient='horizontal', from_=0, to=100, resolution=1, ti
 moteur_lh.grid(row=0, column=0, padx=(10, 10), sticky=N+S+E+W)
 moteur_rh = Scale(hand_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("MAIN DROITE : "), bg="#dddddd", bd=0, highlightthickness=0, command=moteur_hand_right , activebackground= "black")
 moteur_rh.grid(row=0, column=1, padx=(10,10), sticky=N+S+E+W)
+    
     #hand
 Grid.rowconfigure(hand_2, 0, weight=1)
 Grid.columnconfigure(hand_2, 1, weight=1)
@@ -279,6 +281,67 @@ canvas.grid(row=0, column=0, sticky=W)
 #afficher
 vocal.pack(fill = X)
 vocal_full.pack(fill = X)
+
+
+###### FULL CONTROLE #######
+full = Frame(screen[8], bg=str(cfg["page"]["background"]))
+full_1 = Frame(screen[8], bg=str(cfg["page"]["background"]))
+#ajouter du texte
+bienvenue = Label(full, text="Bienvenue sur l'interface de contrôle general :", background = str(cfg["page"]["background"]), font=("Courrier", 12))
+bienvenue.grid(row=0,column=1, sticky=W)
+#images
+width, height = 300, 150
+image_full = PhotoImage(file="images/logo.png").zoom(100).subsample(100)
+canvas = Canvas(full, width=width, height=height, bg = cfg["page"]["background"], bd=0, highlightthickness=0)
+canvas.create_image(width/2,height/2,image=image_full)
+canvas.grid(row=0, column=0, sticky=W)
+    #hand
+Grid.rowconfigure(full_1, 0, weight=1)
+Grid.columnconfigure(full_1, 2, weight=1)
+Grid.columnconfigure(full_1, 1, weight=1)
+Grid.columnconfigure(full_1, 0, weight=1)
+    #moteur column gauche
+moteur_1_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Rotation tete : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.head.rotation, activebackground= "black")
+moteur_1_f.grid(row=0, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_2_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Tete haut/bas : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.head.up_down , activebackground= "black")
+moteur_2_f.grid(row=1, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_3_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Bouche : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.head.mouth, activebackground= "black")
+moteur_3_f.grid(row=2, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_4_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Yeux x : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.head.eyes_x, activebackground= "black")
+moteur_4_f.grid(row=3, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_5_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Yeux y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.head.eyes_y, activebackground= "black")
+moteur_5_f.grid(row=4, column=0, sticky=N+S+E+W, padx=(10, 10))
+moteur_6_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule gauche X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.left_arm.shoulder_x, activebackground= "black")
+moteur_6_f.grid(row=5, column=0, sticky=N+S+E+W, padx=(10, 10))
+    #moteur column centre (n°1)
+moteur_7_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule gauche Y :  "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.left_arm.shoulder_y, activebackground= "black")
+moteur_7_f.grid(row=0, column=1, sticky=N+S+E+W, padx=(10, 10))
+moteur_8_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule gauche Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.left_arm.shoulder_z, activebackground= "black")
+moteur_8_f.grid(row=1, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_9_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Coude gauche : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.left_arm.elbow , activebackground= "black")
+moteur_9_f.grid(row=2, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_10_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule droit X : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.right_arm.shoulder_x, activebackground= "black")
+moteur_10_f.grid(row=3, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_11_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule droit Y : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.right_arm.shoulder_y, activebackground= "black")
+moteur_11_f.grid(row=4, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_12_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Epaule droit Z : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.right_arm.shoulder_z, activebackground= "black")
+moteur_12_f.grid(row=5, column=1, sticky=N+S+E+W, padx=(10,10))
+moteur_13_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Coude droit : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.right_arm.elbow, activebackground= "black")
+#column droite(n°2)
+moteur_13_f.grid(row=0, column=2, sticky=N+S+E+W, padx=(10,10))
+moteur_14_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Main gauche : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.left_hand.all, activebackground= "black")
+moteur_14_f.grid(row=1, column=2, sticky=N+S+E+W, padx=(10,10))
+moteur_15_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Main droit : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.right_hand.all, activebackground= "black")
+moteur_15_f.grid(row=2, column=2, sticky=N+S+E+W, padx=(10,10))
+moteur_16_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Rotation bassin : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.pelvis.rotation, activebackground= "black")
+moteur_16_f.grid(row=3, column=2, sticky=N+S+E+W, padx=(10,10))
+moteur_17_f = Scale(full_1, orient='horizontal', from_=0, to=100, resolution=1, tickinterval=10, label=("Bascule bassin : "), bg = cfg["page"]["background"], bd=0, highlightthickness=0, command=moove.pelvis.rocker, activebackground= "black")
+moteur_17_f.grid(row=4, column=2, sticky=N+S+E+W, padx=(10,10))
+#afficher
+full.pack(fill=X)
+full_1.pack(fill=X)
+
+
 
 ### ecoute des touches du clavier ###
 root.bind("<KeyPress-a>", moteur_1_clavier)

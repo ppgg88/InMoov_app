@@ -79,6 +79,14 @@ def voice_page():
     print("page de reconaissance vocal")
     main.screen[index].pack(fill = X)
 
+def full_controle_page():
+    import main
+    global index
+    main.screen[index].pack_forget()
+    index = 8
+    print("page de controle general")
+    main.screen[index].pack(fill = X)
+
 # touche a
 def moteur_1_clavier(k):
     import main

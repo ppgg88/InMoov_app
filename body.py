@@ -280,51 +280,81 @@ class moove :
     class head :
         def rotation(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_1_h.set(position)
             moteur_head_1(position)
         def up_down(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_2_h.set(position)
             moteur_head_2(position)
         def mouth(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_3_h.set(position)
             moteur_head_3(position)
         def eyes_x(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_4_h.set(position)
             moteur_head_4(position)
         def eyes_y(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_5_h.set(position)
             moteur_head_5(position)
     class left_arm :
         def shoulder_x(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_1_la.set(position)
             moteur_left_arm_1(position)
         def shoulder_y(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_2_la.set(position)
             moteur_left_arm_2(position)
         def shoulder_z(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_3_la.set(position)
             moteur_left_arm_3(position)
         def elbow(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_4_la.set(position)
             moteur_left_arm_4(position)
     class right_arm :
         def shoulder_x(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_1_ra.set(position)
             moteur_right_arm_1(position)
         def shoulder_y(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_2_ra.set(position)
             moteur_right_arm_2(position)
         def shoulder_z(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_3_ra.set(position)
             moteur_right_arm_3(position)
         def elbow(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_4_ra.set(position)
             moteur_right_arm_4(position)
     class pelvis:
         def rocker(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_1_b.set(position)
             moteur_bassin_1(position)
         def rotation(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_2_b.set(position)
             moteur_bassin_2(position)
     class left_hand:
         def pouce(position:int):
@@ -345,6 +375,8 @@ class moove :
         def all(position:int):
             """position en % du mouvement total"""
             moteur_hand_left(position)
+            import main
+            main.moteur_lh.set(position)
     class right_hand:
         def pouce(position:int):
             """position en % du mouvement total"""
@@ -363,4 +395,6 @@ class moove :
             moteur_hand_right_5(position)
         def all(position:int):
             """position en % du mouvement total"""
+            import main
+            main.moteur_rh.set(position)
             moteur_hand_right(position)
